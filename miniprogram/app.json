@@ -5,7 +5,7 @@
     "pages/archive/index"
   ],
   "window": {
-    "navigationBarTitleText": "照心录",
+    "navigationBarTitleText": "收念匣",
     "navigationBarBackgroundColor": "#F4EADB",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#F4EADB"

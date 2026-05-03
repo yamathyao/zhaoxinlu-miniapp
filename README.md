@@ -1,13 +1,13 @@
-# 照心录 / Zhaoxinlu Miniapp
+# 收念匣 / Shounian Box Miniapp
 
-> 记录每日一念，照见心中轻重。<br>
-> Record each day's small reflections, and watch the balance of the heart over time.
+> 把今日一念，轻轻收进匣中。<br>
+> Gently collect each day's thoughts into a quiet box.
 
 ## 🌿 项目简介 / Overview
 
-**照心录** 是一个面向日常自省的微信小程序原型。用户可以记录一天中的“小功”与“小过”，将它们收入对应容器，并在一天结束时封存为一张今日卡片。
+**收念匣** 是一个面向日常自省的微信小程序原型。用户可以记录一天中的“小功”与“小过”，把这些值得回看的一念收入对应匣中，并在一天结束时封存为一张今日卡片。
 
-**Zhaoxinlu** is a mini app prototype for daily self-reflection. Users can record small acts of virtue and moments of fault, place them into matching containers, and seal them into a daily card at the end of the day.
+**Shounian Box** is a mini app prototype for daily self-reflection. Users can record small acts of virtue and moments of fault, place these thoughts into matching boxes, and seal them into a daily card at the end of the day.
 
 ## 🧭 当前方向 / Current Direction
 
@@ -25,9 +25,9 @@ The current version starts with **daily personal recording**:
 - Seal the day's entries into a daily card
 - Review inner changes over time
 
-产品名称不绑定某一种具体物件。未来的视觉载体可以继续探索，例如双匣、签筒、手札、账簿、灯盏，或其他更契合用户偏好的形式。
+“收念匣”强调的是一个温和动作：把今日值得回看的念头收起来，而不是审判自己。当前视觉载体以双匣为主，未来仍可继续探索签筒、手札、账簿、灯盏，或其他更契合用户偏好的形式。
 
-The product name is not tied to one fixed object. Future visual metaphors may continue to explore forms such as paired boxes, fortune-stick holders, handwritten booklets, ledgers, lamps, or other objects that better match user preferences.
+The name "Shounian Box" emphasizes a gentle action: collecting thoughts worth revisiting instead of judging oneself. The current visual metaphor focuses on paired boxes, while future directions may still explore fortune-stick holders, handwritten booklets, ledgers, lamps, or other objects that better match user preferences.
 
 ## 🧪 原型 / Prototypes
 
@@ -57,9 +57,9 @@ This directory now keeps both HTML / CSS / JS prototypes and the formal WeChat M
 
 ## ✨ 项目愿景 / Vision
 
-照心录希望把自我记录做得轻、安静、可持续：不强调评判，而是帮助用户在日复一日的小记录里，看见自己的变化。
+收念匣希望把自我记录做得轻、安静、可持续：不强调评判，而是帮助用户把每天的一念妥帖收好，并在日复一日的小记录里看见自己的变化。
 
-Zhaoxinlu aims to make self-reflection light, calm, and sustainable. Instead of emphasizing judgment, it helps users notice their own changes through small daily records.
+Shounian Box aims to make self-reflection light, calm, and sustainable. Instead of emphasizing judgment, it helps users collect each day's thoughts with care and notice their own changes through small daily records.
 
 ## 📄 许可 / License
 

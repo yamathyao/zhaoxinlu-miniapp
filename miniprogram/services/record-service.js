@@ -2,7 +2,7 @@ const { JUDGEMENT_COPY } = require("../constants/copy");
 const { getDateKey } = require("../utils/date");
 const { readStorage, writeStorage } = require("../utils/storage");
 
-const STORAGE_KEY = "zhaoxinlu.records.v1";
+const STORAGE_KEY = "shounian-box.records.v1";
 
 function createDayRecord(dateKey = getDateKey()) {
   return {

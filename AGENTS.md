@@ -1,10 +1,10 @@
 # AGENTS.md
 
-本文件记录 `zhaoxinlu-miniapp` 仓库内的项目级协作约定。
+本文件记录 `zhaoxinlu-miniapp` 仓库内“收念匣”项目的协作约定。
 
 ## 项目定位
 
-- 当前仓库用于沉淀“照心录”微信小程序的产品方向、交互原型与后续工程代码。
+- 当前仓库用于沉淀“收念匣”微信小程序的产品方向、交互原型与后续工程代码。
 - 现阶段以 `prototypes/` 中的 HTML / CSS / JS 原型为主，正式小程序工程尚未建立。
 - 后续新增正式工程时，优先放在 `miniprogram/`、`assets/`、`components/`、`pages/` 等清晰目录中。
 

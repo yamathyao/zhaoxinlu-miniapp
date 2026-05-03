@@ -1,5 +1,5 @@
 App({
   globalData: {
-    appName: "照心录",
+    appName: "收念匣",
   },
 });

@@ -1,13 +1,13 @@
-# 照心录当前范围 / Zhaoxinlu Current Scope
+# 收念匣当前范围 / Shounian Box Current Scope
 
 - 日期 / Date: 2026-05-03
 - 状态 / Status: 现阶段范围说明 / Current scope note
 
 ## 1. 目标 / Goal
 
-照心录第一版先把“每日自我记录”这件事做成立：用户能轻松记下一条功或过，看到当天结果，并愿意第二天继续回来。
+收念匣第一版先把“每日自我记录”这件事做成立：用户能轻松记下一条功或过，把今日一念收进匣中，看到当天结果，并愿意第二天继续回来。
 
-The first version of Zhaoxinlu should make daily self-reflection feel real and lightweight: users can quickly record one act of virtue or fault, see the day's result, and feel like coming back the next day.
+The first version of Shounian Box should make daily self-reflection feel real and lightweight: users can quickly record one act of virtue or fault, collect the day's thought into a box, see the day's result, and feel like coming back the next day.
 
 ## 2. 范围内 / In Scope
 
