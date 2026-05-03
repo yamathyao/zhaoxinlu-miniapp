@@ -1,4 +1,4 @@
-Component({
+﻿Component({
   properties: {
     visible: {
       type: Boolean,
@@ -20,6 +20,14 @@ Component({
       type: String,
       value: "收入功匣",
     },
+    mode: {
+      type: String,
+      value: "overlay",
+    },
+    disabled: {
+      type: Boolean,
+      value: false,
+    },
   },
 
   data: {
@@ -36,15 +44,24 @@ Component({
     },
 
     handleMaskTap() {
+      if (this.properties.mode === "stage") {
+        return;
+      }
       this.cancel();
     },
 
     cancel() {
+      if (this.properties.disabled) {
+        return;
+      }
       this.setData({ text: "" });
       this.triggerEvent("cancel");
     },
 
     submit() {
+      if (this.properties.disabled) {
+        return;
+      }
       this.triggerEvent("submit", {
         text: this.data.text.trim(),
       });

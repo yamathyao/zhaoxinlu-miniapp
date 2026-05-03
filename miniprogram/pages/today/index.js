@@ -1,4 +1,4 @@
-const { TOKEN_COPY } = require("../../constants/copy");
+﻿const { TOKEN_COPY } = require("../../constants/copy");
 const { formatDisplayDate } = require("../../utils/date");
 const {
   addSlip,
@@ -10,6 +10,9 @@ const {
 
 Page({
   data: {
+    scene: "intro",
+    dailyLine: "能看见一念，便已离它近了一步。",
+    flyingText: "",
     records: null,
     today: {
       dateKey: "",
@@ -39,6 +42,12 @@ Page({
     });
   },
 
+  enterDesk() {
+    this.setData({
+      scene: "choosing",
+    });
+  },
+
   openGong() {
     this.openEditor("gong");
   },
@@ -54,6 +63,7 @@ Page({
     }
 
     this.setData({
+      scene: "writing",
       editorVisible: true,
       pendingType: type,
       editorCopy: TOKEN_COPY[type],
@@ -62,6 +72,7 @@ Page({
 
   closeEditor() {
     this.setData({
+      scene: "choosing",
       editorVisible: false,
     });
   },
@@ -74,12 +85,21 @@ Page({
       today: addSlip(this.data.today, type, text),
     };
 
-    saveRecords(records);
     this.setData({
+      scene: "sending",
+      flyingText: text || TOKEN_COPY[type].emptySlip,
       editorVisible: false,
     });
-    wx.showToast({ title: TOKEN_COPY[type].status, icon: "none" });
-    this.refresh();
+
+    setTimeout(() => {
+      saveRecords(records);
+      wx.showToast({ title: TOKEN_COPY[type].status, icon: "none" });
+      this.refresh();
+      this.setData({
+        scene: "choosing",
+        flyingText: "",
+      });
+    }, 760);
   },
 
   seal() {

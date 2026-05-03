@@ -1,4 +1,4 @@
-@import "../../styles/tokens.wxss";
+﻿@import "../../styles/tokens.wxss";
 
 .ledger-box {
   position: relative;
@@ -89,6 +89,18 @@
   color: var(--muted);
   font-size: 24rpx;
   font-weight: 500;
+}
+
+@keyframes boxArrive {
+  from {
+    opacity: 0;
+    transform: translateY(28rpx) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes slipIn {

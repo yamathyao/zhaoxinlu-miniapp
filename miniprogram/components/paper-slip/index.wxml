@@ -1,10 +1,10 @@
-<view class="mask {{visible ? 'is-open' : ''}}" catchtap="handleMaskTap">
+﻿<view class="paper-host mode-{{mode}} {{visible ? 'is-open' : ''}}" catchtap="handleMaskTap">
   <view class="paper-token token-{{type}}" catchtap="noop">
     <text class="token-title">{{title}}</text>
-    <textarea class="token-text" value="{{text}}" maxlength="54" placeholder="{{placeholder}}" bindinput="handleInput" />
+    <textarea class="token-text" value="{{text}}" maxlength="54" placeholder="{{placeholder}}" disabled="{{disabled}}" bindinput="handleInput" />
     <view class="token-actions">
-      <button class="ghost-btn" bindtap="cancel">先不写</button>
-      <button class="submit-btn" bindtap="submit">{{submitText}}</button>
+      <button class="ghost-btn" disabled="{{disabled}}" bindtap="cancel">先不写</button>
+      <button class="submit-btn" disabled="{{disabled}}" bindtap="submit">{{submitText}}</button>
     </view>
   </view>
 </view>

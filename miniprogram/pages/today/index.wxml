@@ -1,13 +1,46 @@
-<view class="today-page">
+﻿<view class="today-page scene-{{scene}} focus-{{pendingType}}">
+  <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
+    <text class="intro-kicker">收念匣</text>
+    <text class="intro-line">{{dailyLine}}</text>
+    <text class="intro-hint">轻触启匣</text>
+  </view>
+
   <view class="titlebar">
     <text class="kicker">双匣试作</text>
     <text class="title">今日一念，收归两匣</text>
     <text class="date">{{displayDate}}</text>
   </view>
 
-  <view class="box-grid">
-    <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" />
-    <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" />
+  <view class="desk-stage">
+    <view class="stage-glow"></view>
+    <view class="flying-slip flying-{{pendingType}} {{scene === 'sending' ? 'is-flying' : ''}}">
+      <text>{{flyingText}}</text>
+    </view>
+
+    <view class="box-grid">
+      <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" />
+      <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" />
+    </view>
+
+    <view class="choice-panel {{scene === 'choosing' ? 'is-active' : ''}}">
+      <text class="choice-copy">今日这一念，要收入哪一匣？</text>
+      <view class="choice-actions">
+        <button class="choice-btn gong-btn" bindtap="openGong">写一功</button>
+        <button class="choice-btn guo-btn" bindtap="openGuo">写一过</button>
+      </view>
+    </view>
+
+    <paper-slip
+      mode="stage"
+      visible="{{editorVisible}}"
+      type="{{pendingType}}"
+      title="{{editorCopy.title}}"
+      placeholder="{{editorCopy.placeholder}}"
+      submitText="{{editorCopy.submit}}"
+      disabled="{{scene === 'sending'}}"
+      bind:cancel="closeEditor"
+      bind:submit="submitSlip"
+    />
   </view>
 
   <view class="judgement-panel">
@@ -15,16 +48,6 @@
     <text class="panel-title">{{judgement.title}}</text>
     <text class="panel-copy">{{judgement.copy}}</text>
   </view>
-
-  <paper-slip
-    visible="{{editorVisible}}"
-    type="{{pendingType}}"
-    title="{{editorCopy.title}}"
-    placeholder="{{editorCopy.placeholder}}"
-    submitText="{{editorCopy.submit}}"
-    bind:cancel="closeEditor"
-    bind:submit="submitSlip"
-  />
 
   <action-bar
     sealed="{{today.sealed}}"
