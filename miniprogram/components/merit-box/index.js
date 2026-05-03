@@ -28,6 +28,14 @@ Component({
     emptyText: TOKEN_COPY.gong.emptySlip,
   },
 
+  methods: {
+    openBox() {
+      this.triggerEvent("open", {
+        type: this.properties.type,
+      });
+    },
+  },
+
   observers: {
     type(type) {
       this.setData({

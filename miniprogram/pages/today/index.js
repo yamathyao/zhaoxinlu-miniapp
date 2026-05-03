@@ -9,6 +9,30 @@ const {
   unsealToday,
 } = require("../../services/record-service");
 
+const BOX_VIEWER_TITLE = {
+  gong: "功匣",
+  guo: "过匣",
+};
+
+function getSlipText(type, slip) {
+  if (slip && slip.text) {
+    return slip.text;
+  }
+
+  return TOKEN_COPY[type].emptySlip;
+}
+
+function buildViewerSlips(type, slips, selectedIndex) {
+  const prefix = type === "gong" ? "功符" : "过符";
+
+  return slips.map((slip, index) => ({
+    key: `${slip.createdAt || "draft"}-${index}`,
+    label: `${prefix}${index + 1}`,
+    preview: getSlipText(type, slip).slice(0, 8),
+    selected: index === selectedIndex,
+  }));
+}
+
 Page({
   data: {
     scene: "intro",
@@ -26,6 +50,13 @@ Page({
     editorVisible: false,
     pendingType: "gong",
     editorCopy: TOKEN_COPY.gong,
+    boxViewerVisible: false,
+    boxViewerType: "gong",
+    boxViewerTitle: "功匣",
+    boxViewerSlips: [],
+    selectedSlipIndex: 0,
+    selectedSlipText: "点选一枚符查看内容",
+    hasSelectedSlip: false,
   },
 
   onShow() {
@@ -117,6 +148,51 @@ Page({
     }
 
     wx.showToast({ title: "今日已解封", icon: "none" });
+  },
+
+  openBoxViewer(event) {
+    if (this.data.editorVisible || this.data.scene === "sending") {
+      return;
+    }
+
+    const type = event.detail.type === "guo" ? "guo" : "gong";
+    const slips = this.data.today[type] || [];
+    const selectedIndex = slips.length ? 0 : -1;
+
+    this.setData({
+      boxViewerVisible: true,
+      boxViewerType: type,
+      boxViewerTitle: BOX_VIEWER_TITLE[type],
+      boxViewerSlips: buildViewerSlips(type, slips, selectedIndex),
+      selectedSlipIndex: selectedIndex,
+      selectedSlipText: slips.length ? getSlipText(type, slips[0]) : "匣中还没有符。",
+      hasSelectedSlip: Boolean(slips.length),
+    });
+  },
+
+  closeBoxViewer() {
+    this.setData({
+      boxViewerVisible: false,
+      boxViewerSlips: [],
+      selectedSlipIndex: 0,
+      selectedSlipText: "点选一枚符查看内容",
+      hasSelectedSlip: false,
+    });
+  },
+
+  noop() {},
+
+  selectSlip(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const type = this.data.boxViewerType;
+    const slips = this.data.today[type] || [];
+
+    this.setData({
+      boxViewerSlips: buildViewerSlips(type, slips, index),
+      selectedSlipIndex: index,
+      selectedSlipText: slips[index] ? getSlipText(type, slips[index]) : "点选一枚符查看内容",
+      hasSelectedSlip: Boolean(slips[index]),
+    });
   },
 
   goSummary() {

@@ -1,4 +1,4 @@
-<view class="ledger-box box-{{type}} {{sealed ? 'is-sealed' : ''}}">
+<view class="ledger-box box-{{type}} {{sealed ? 'is-sealed' : ''}}" bindtap="openBox">
   <view class="box-lid"></view>
   <view class="box-mouth">
     <view class="slip-stack">

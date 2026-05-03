@@ -1,4 +1,4 @@
-<view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible ? 'has-modal' : ''}}">
+<view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible || boxViewerVisible ? 'has-modal' : ''}}">
   <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
     <text class="intro-kicker">收念匣</text>
     <text class="intro-line">{{dailyLine}}</text>
@@ -18,8 +18,8 @@
     </view>
 
     <view class="box-grid">
-      <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" />
-      <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" />
+      <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
     </view>
   </view>
 
@@ -37,6 +37,37 @@
     bind:archive="goArchive"
     bind:seal="seal"
   />
+
+  <view class="box-viewer-mask {{boxViewerVisible ? 'is-open' : ''}}" wx:if="{{boxViewerVisible}}" bindtap="closeBoxViewer" catchtouchmove="noop">
+    <view class="box-viewer box-viewer-{{boxViewerType}}" catchtap="noop">
+      <view class="viewer-lid"></view>
+      <view class="viewer-header">
+        <text class="viewer-kicker">{{boxViewerTitle}}</text>
+        <text class="viewer-count">{{boxViewerSlips.length}} 符</text>
+      </view>
+      <view class="viewer-body">
+        <view class="viewer-mouth">
+          <view class="viewer-slip-list" wx:if="{{boxViewerSlips.length}}">
+            <view
+              class="viewer-slip slip-{{boxViewerType}} {{item.selected ? 'is-selected' : ''}}"
+              wx:for="{{boxViewerSlips}}"
+              wx:key="key"
+              data-index="{{index}}"
+              catchtap="selectSlip"
+            >
+              <text class="viewer-slip-label">{{item.label}}</text>
+              <text class="viewer-slip-preview">{{item.preview}}</text>
+            </view>
+          </view>
+          <view class="viewer-empty" wx:else>匣中还没有符。</view>
+        </view>
+      </view>
+      <view class="slip-detail {{hasSelectedSlip ? 'is-visible' : ''}}">
+        <text class="detail-title">符文</text>
+        <text class="detail-copy">{{selectedSlipText}}</text>
+      </view>
+    </view>
+  </view>
 
   <paper-slip
     mode="stage"
