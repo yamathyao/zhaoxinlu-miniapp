@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本文件记录 `zhaoxinlu-miniapp` 仓库内“收念匣”项目的协作约定。
+本文件记录 `shounian-miniapp` 仓库内“收念匣”项目的协作约定。
 
 ## 项目定位
 
