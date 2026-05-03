@@ -11,29 +11,67 @@
     var(--paper);
   box-shadow: 0 22rpx 48rpx var(--shadow);
   overflow: hidden;
+  animation: boxArrive 520ms cubic-bezier(.2, .78, .2, 1) both;
+}
+
+.ledger-box::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 116rpx;
+  z-index: 4;
+  height: 18rpx;
+  border-radius: 999rpx;
+  background: rgba(45, 28, 18, 0.18);
+  opacity: 0;
+  transition: opacity 420ms ease;
 }
 
 .box-lid {
   position: absolute;
   left: 14%;
   top: 14rpx;
+  z-index: 5;
   width: 72%;
   height: 72rpx;
   border-radius: 18rpx 18rpx 28rpx 28rpx;
   background:
+    radial-gradient(ellipse at 34% 18%, rgba(255, 229, 174, 0.28), transparent 34%),
     repeating-linear-gradient(96deg, rgba(255, 239, 198, 0.08) 0 3rpx, rgba(73, 43, 23, 0.08) 4rpx 8rpx),
     linear-gradient(180deg, #b57b4d 0%, #7d4b31 56%, var(--wood-deep) 100%);
   box-shadow: 0 18rpx 24rpx rgba(58, 35, 19, 0.2);
-  transform: translateY(-44rpx) rotateX(58deg);
-  transition: transform 520ms ease, top 520ms ease;
+  transform: translateY(-44rpx) rotateX(58deg) scaleX(0.94);
+  transform-origin: 50% 100%;
+  transition:
+    left 620ms cubic-bezier(.2, .78, .2, 1),
+    top 620ms cubic-bezier(.2, .78, .2, 1),
+    width 620ms cubic-bezier(.2, .78, .2, 1),
+    height 620ms cubic-bezier(.2, .78, .2, 1),
+    border-radius 620ms ease,
+    transform 620ms cubic-bezier(.2, .78, .2, 1),
+    box-shadow 620ms ease;
 }
 
 .is-sealed .box-lid {
-  top: 66rpx;
-  transform: translateY(0) rotateX(0deg);
+  left: 7%;
+  top: 88rpx;
+  width: 86%;
+  height: 178rpx;
+  border-radius: 26rpx;
+  transform: translateY(0) rotateX(0deg) scaleX(1);
+  box-shadow:
+    inset 0 2rpx 0 rgba(255, 235, 186, 0.24),
+    inset 0 -18rpx 26rpx rgba(38, 22, 13, 0.28),
+    0 22rpx 34rpx rgba(43, 26, 15, 0.24);
+}
+
+.is-sealed::after {
+  opacity: 1;
 }
 
 .box-mouth {
+  position: relative;
   min-height: 232rpx;
   margin-top: 38rpx;
   border-radius: 24rpx;
@@ -41,38 +79,89 @@
     radial-gradient(circle at 50% 22%, rgba(255, 245, 213, 0.58), transparent 42%),
     linear-gradient(180deg, rgba(83, 50, 28, 0.18), rgba(67, 38, 22, 0.34));
   border: 1rpx solid rgba(76, 48, 36, 0.12);
+  transition: filter 520ms ease, opacity 520ms ease;
+}
+
+.is-sealed .box-mouth {
+  filter: brightness(0.52) saturate(0.86);
+  opacity: 0.72;
 }
 
 .slip-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
+  gap: 10rpx;
   align-content: flex-start;
   min-height: 232rpx;
   padding: 34rpx 20rpx;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.is-sealed .slip-stack {
+  opacity: 0.12;
+  transform: translateY(16rpx) scale(0.94);
 }
 
 .stored-slip {
-  width: 72rpx;
-  min-height: 96rpx;
-  padding: 10rpx 8rpx;
-  border-radius: 8rpx;
-  color: var(--ink);
-  font-size: 18rpx;
-  line-height: 1.25;
+  position: relative;
+  width: 54rpx;
+  min-height: 136rpx;
+  padding: 18rpx 8rpx 14rpx;
+  border-radius: 999rpx 999rpx 10rpx 10rpx;
+  color: rgba(47, 37, 29, 0.86);
+  font-size: 19rpx;
+  line-height: 1.2;
   writing-mode: vertical-rl;
-  box-shadow: 0 8rpx 18rpx rgba(47, 31, 20, 0.16);
+  letter-spacing: 1rpx;
+  box-shadow:
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.5),
+    0 8rpx 18rpx rgba(47, 31, 20, 0.16);
   animation: slipIn 360ms ease both;
 }
 
+.stored-slip::before {
+  content: "";
+  position: absolute;
+  top: 10rpx;
+  left: 50%;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 999rpx;
+  background: rgba(92, 58, 31, 0.22);
+  transform: translateX(-50%);
+}
+
+.stored-slip::after {
+  content: "";
+  position: absolute;
+  right: 8rpx;
+  bottom: 10rpx;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 4rpx;
+  opacity: 0.68;
+}
+
 .slip-gong {
-  background: linear-gradient(180deg, #fff4dd, #f0c7a8);
-  border-left: 5rpx solid var(--gong);
+  background:
+    linear-gradient(90deg, rgba(137, 91, 48, 0.08) 1rpx, transparent 1rpx) 0 0 / 10rpx 10rpx,
+    linear-gradient(180deg, #fff4dd, #eac59f);
+  border: 1rpx solid rgba(186, 74, 55, 0.2);
+}
+
+.slip-gong::after {
+  background: rgba(186, 74, 55, 0.42);
 }
 
 .slip-guo {
-  background: linear-gradient(180deg, #eef6f4, #b8d0d1);
-  border-left: 5rpx solid var(--guo);
+  background:
+    linear-gradient(90deg, rgba(72, 111, 122, 0.08) 1rpx, transparent 1rpx) 0 0 / 10rpx 10rpx,
+    linear-gradient(180deg, #eff6ef, #b7cfcb);
+  border: 1rpx solid rgba(72, 111, 122, 0.22);
+}
+
+.slip-guo::after {
+  background: rgba(72, 111, 122, 0.42);
 }
 
 .box-base {

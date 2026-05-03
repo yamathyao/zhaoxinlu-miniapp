@@ -3,12 +3,16 @@
 .daily-card {
   display: flex;
   flex-direction: column;
-  gap: 22rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
   min-height: 560rpx;
-  padding: 48rpx 38rpx;
+  padding: 54rpx 42rpx;
   border-radius: 30rpx;
   color: var(--ink);
+  text-align: center;
   background:
+    radial-gradient(circle at 50% 18%, rgba(255, 246, 221, 0.72), transparent 32%),
     linear-gradient(90deg, rgba(120, 90, 52, 0.06) 1rpx, transparent 1rpx) 0 0 / 26rpx 26rpx,
     linear-gradient(180deg, #fff8e9, #efd7b4);
   box-shadow: 0 24rpx 68rpx var(--shadow);
@@ -20,13 +24,14 @@
 }
 
 .card-title {
-  margin-top: 80rpx;
+  max-width: 100%;
   font-size: 54rpx;
   font-weight: 700;
-  line-height: 1.16;
+  line-height: 1.18;
 }
 
 .card-copy {
+  max-width: 520rpx;
   color: var(--muted);
   font-size: 30rpx;
   line-height: 1.7;
@@ -34,14 +39,20 @@
 
 .card-counts {
   display: flex;
+  justify-content: center;
   gap: 18rpx;
-  margin-top: auto;
+  margin-top: 18rpx;
 }
 
 .card-counts text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 132rpx;
   padding: 14rpx 22rpx;
   border-radius: 999rpx;
   color: var(--wood-deep);
   background: rgba(255, 250, 240, 0.7);
   font-size: 24rpx;
+  line-height: 1;
 }
