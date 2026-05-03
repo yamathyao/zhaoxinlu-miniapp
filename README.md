@@ -59,3 +59,9 @@ This directory currently organizes existing HTML / CSS / JS prototypes. A formal
 照心录希望把自我记录做得轻、安静、可持续：不强调评判，而是帮助用户在日复一日的小记录里，看见自己的变化。
 
 Zhaoxinlu aims to make self-reflection light, calm, and sustainable. Instead of emphasizing judgment, it helps users notice their own changes through small daily records.
+
+## 📄 许可 / License
+
+本项目使用 MIT License。详情见 `LICENSE`。
+
+This project is released under the MIT License. See `LICENSE` for details.
