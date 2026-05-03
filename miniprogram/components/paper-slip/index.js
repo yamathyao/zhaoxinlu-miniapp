@@ -1,4 +1,4 @@
-﻿Component({
+Component({
   properties: {
     visible: {
       type: Boolean,

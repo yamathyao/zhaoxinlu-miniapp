@@ -1,4 +1,4 @@
-﻿const { TOKEN_COPY } = require("../../constants/copy");
+const { TOKEN_COPY } = require("../../constants/copy");
 const { formatDisplayDate } = require("../../utils/date");
 const {
   addSlip,

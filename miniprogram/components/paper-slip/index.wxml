@@ -1,4 +1,4 @@
-﻿<view class="paper-host mode-{{mode}} {{visible ? 'is-open' : ''}}" catchtap="handleMaskTap">
+<view class="paper-host mode-{{mode}} {{visible ? 'is-open' : ''}}" catchtap="handleMaskTap">
   <view class="paper-token token-{{type}}" catchtap="noop">
     <text class="token-title">{{title}}</text>
     <textarea class="token-text" value="{{text}}" maxlength="54" placeholder="{{placeholder}}" disabled="{{disabled}}" bindinput="handleInput" />

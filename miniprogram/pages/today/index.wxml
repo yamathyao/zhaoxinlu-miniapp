@@ -1,4 +1,4 @@
-﻿<view class="today-page scene-{{scene}} focus-{{pendingType}}">
+<view class="today-page scene-{{scene}} focus-{{pendingType}}">
   <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
     <text class="intro-kicker">收念匣</text>
     <text class="intro-line">{{dailyLine}}</text>
