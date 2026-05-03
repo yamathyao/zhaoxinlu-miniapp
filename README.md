@@ -42,6 +42,7 @@ The product name is not tied to one fixed object. Future visual metaphors may co
 | --- | --- |
 | `docs/specs/2026-04-27-gongguo-beans-design.md` | 早期玩法与设计说明。<br>Early gameplay and design notes. |
 | `docs/plans/2026-04-27-gongguo-demo-plan.md` | 原型实现计划记录。<br>Prototype implementation plan. |
+| `docs/specs/2026-05-03-current-scope.md` | 当前产品范围说明。<br>Current scope note. |
 
 ## 🛠️ 当前状态 / Current Status
 
