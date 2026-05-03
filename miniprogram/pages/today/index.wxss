@@ -134,58 +134,6 @@
   transform: translateX(-118rpx) translateY(18rpx) scale(1.12);
 }
 
-.choice-panel {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 22rpx;
-  margin: -28rpx 18rpx 0;
-  padding: 26rpx;
-  border: 1rpx solid var(--line);
-  border-radius: 28rpx;
-  background: rgba(255, 250, 240, 0.78);
-  box-shadow: 0 18rpx 52rpx var(--shadow);
-  opacity: 0;
-  transform: translateY(18rpx);
-  pointer-events: none;
-  transition: opacity 260ms ease, transform 260ms ease;
-}
-
-.choice-panel.is-active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.choice-copy {
-  color: var(--muted);
-  font-size: 28rpx;
-  text-align: center;
-}
-
-.choice-actions {
-  display: flex;
-  gap: 18rpx;
-}
-
-.choice-btn {
-  flex: 1;
-  height: 84rpx;
-  border-radius: 999rpx;
-  color: #fffaf0;
-  font-size: 30rpx;
-  font-weight: 700;
-}
-
-.gong-btn {
-  background: linear-gradient(180deg, var(--gong-light), var(--gong));
-}
-
-.guo-btn {
-  background: linear-gradient(180deg, var(--guo-light), var(--guo));
-}
-
 .flying-slip {
   position: absolute;
   left: 50%;
