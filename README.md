@@ -15,10 +15,11 @@ Zhaoxinlu is a mini app for daily self-reflection. Users record small acts of vi
 
 ## Docs
 
-- `docs/superpowers/specs/2026-04-27-gongguo-beans-design.md`: 早期玩法与设计说明。
-- `docs/superpowers/plans/2026-04-27-gongguo-demo-plan.md`: 原型实现计划记录。
+- `docs/specs/2026-04-27-gongguo-beans-design.md`: 早期玩法与设计说明。
+- `docs/plans/2026-04-27-gongguo-demo-plan.md`: 原型实现计划记录。
 
 ## 当前状态
 
 当前目录主要用于整理已有 HTML/CSS/JS 原型。正式微信小程序工程可以在后续基于这个目录继续创建，例如新增 `miniprogram/`、`assets/`、`components/`、`pages/` 等目录。
+
 # zhaoxinlu-miniapp
