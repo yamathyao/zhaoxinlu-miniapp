@@ -60,3 +60,12 @@
   font-size: 24rpx;
   line-height: 1;
 }
+
+.seal-toggle {
+  font-weight: 700;
+}
+
+.is-sealed .seal-toggle {
+  color: #fffaf0;
+  background: linear-gradient(180deg, var(--brass), var(--brass-dark));
+}

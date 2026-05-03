@@ -37,24 +37,43 @@ function addSlip(day, type, text) {
   };
 }
 
-function sealToday(records) {
-  if (records.today.sealed) {
-    return records;
+function createArchiveEntry(today) {
+  return {
+    ...today,
+    sealed: true,
+    sealedAt: Date.now(),
+  };
+}
+
+function upsertArchive(archive, entry) {
+  const exists = archive.some((day) => day.dateKey === entry.dateKey);
+  if (!exists) {
+    return [entry, ...archive];
   }
 
+  return archive.map((day) => (day.dateKey === entry.dateKey ? entry : day));
+}
+
+function sealToday(records) {
+  const sealedToday = {
+    ...records.today,
+    sealed: true,
+  };
+  const archiveEntry = createArchiveEntry(sealedToday);
+
   return {
+    today: sealedToday,
+    archive: upsertArchive(records.archive, archiveEntry),
+  };
+}
+
+function unsealToday(records) {
+  return {
+    ...records,
     today: {
       ...records.today,
-      sealed: true,
+      sealed: false,
     },
-    archive: [
-      {
-        ...records.today,
-        sealed: true,
-        sealedAt: Date.now(),
-      },
-      ...records.archive,
-    ],
   };
 }
 
@@ -84,5 +103,6 @@ module.exports = {
   saveRecords,
   addSlip,
   sealToday,
+  unsealToday,
   getJudgement,
 };

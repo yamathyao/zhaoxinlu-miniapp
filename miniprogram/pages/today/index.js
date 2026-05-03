@@ -6,6 +6,7 @@ const {
   loadRecords,
   saveRecords,
   sealToday,
+  unsealToday,
 } = require("../../services/record-service");
 
 Page({
@@ -103,10 +104,19 @@ Page({
   },
 
   seal() {
-    const records = sealToday(this.data.records);
+    const records = this.data.today.sealed
+      ? unsealToday(this.data.records)
+      : sealToday(this.data.records);
+
     saveRecords(records);
     this.refresh();
-    wx.navigateTo({ url: "/pages/summary/index" });
+
+    if (records.today.sealed) {
+      wx.navigateTo({ url: "/pages/summary/index" });
+      return;
+    }
+
+    wx.showToast({ title: "今日已解封", icon: "none" });
   },
 
   goSummary() {
