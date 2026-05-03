@@ -25,11 +25,15 @@
 
 .record-btn {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 84rpx;
   border-radius: 999rpx;
   color: #fffaf0;
   font-size: 30rpx;
   font-weight: 700;
+  line-height: 1;
 }
 
 .record-btn[disabled] {
@@ -46,9 +50,13 @@
 
 .secondary-actions button {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 64rpx;
   border-radius: 999rpx;
   color: var(--wood-deep);
   background: rgba(244, 234, 219, 0.82);
   font-size: 24rpx;
+  line-height: 1;
 }

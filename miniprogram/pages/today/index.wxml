@@ -22,13 +22,6 @@
       <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" />
     </view>
 
-    <view class="choice-panel {{scene === 'choosing' ? 'is-active' : ''}}">
-      <text class="choice-copy">今日这一念，要收入哪一匣？</text>
-      <view class="choice-actions">
-        <button class="choice-btn gong-btn" bindtap="openGong">写一功</button>
-        <button class="choice-btn guo-btn" bindtap="openGuo">写一过</button>
-      </view>
-    </view>
 
     <paper-slip
       mode="stage"

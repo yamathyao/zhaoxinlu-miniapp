@@ -44,7 +44,7 @@ Page({
 
   enterDesk() {
     this.setData({
-      scene: "choosing",
+      scene: "idle",
     });
   },
 
@@ -72,7 +72,7 @@ Page({
 
   closeEditor() {
     this.setData({
-      scene: "choosing",
+      scene: "idle",
       editorVisible: false,
     });
   },
@@ -96,7 +96,7 @@ Page({
       wx.showToast({ title: TOKEN_COPY[type].status, icon: "none" });
       this.refresh();
       this.setData({
-        scene: "choosing",
+        scene: "idle",
         flyingText: "",
       });
     }, 760);

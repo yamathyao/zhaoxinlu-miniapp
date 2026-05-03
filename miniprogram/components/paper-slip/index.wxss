@@ -20,12 +20,12 @@
 }
 
 .paper-host.mode-stage {
-  position: absolute;
-  inset: auto 34rpx 0;
-  z-index: 7;
+  position: fixed;
+  inset: 0;
+  z-index: 18;
   align-items: flex-end;
-  padding: 0;
-  background: transparent;
+  padding: 0 34rpx 126rpx;
+  background: rgba(47, 37, 29, 0.18);
 }
 
 .paper-token {
@@ -84,9 +84,13 @@
 .ghost-btn,
 .submit-btn {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 82rpx;
   border-radius: 999rpx;
   font-size: 28rpx;
+  line-height: 1;
 }
 
 .ghost-btn {
