@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>功过双匣 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="desk">
+      <header class="titlebar">
+        <p>双匣试作</p>
+        <h1>今日一念，收归两匣</h1>
+      </header>
+
+      <section class="box-grid">
+        <article class="ledger-box box-gong" id="gongBox">
+          <span class="box-corner corner-left"></span>
+          <span class="box-corner corner-right"></span>
+          <div class="box-lid">
+            <span class="lid-inner"></span>
+          </div>
+          <span class="box-clasp"></span>
+          <div class="box-mouth">
+            <span class="box-glow"></span>
+            <span class="lining-pattern"></span>
+            <div class="slip-stack" id="gongStack" aria-label="功匣纸符"></div>
+          </div>
+          <div class="box-base">
+            <span>功匣</span>
+            <strong><b id="gongCount">0</b> 符</strong>
+          </div>
+        </article>
+
+        <section class="center-panel">
+          <div class="seal-mark">记</div>
+          <p id="statusText">写下一念，投入对应的匣中。</p>
+          <div class="action-row">
+            <button class="record-btn record-gong" id="openGong">写一功</button>
+            <button class="record-btn record-guo" id="openGuo">写一过</button>
+          </div>
+        </section>
+
+        <article class="ledger-box box-guo" id="guoBox">
+          <span class="box-corner corner-left"></span>
+          <span class="box-corner corner-right"></span>
+          <div class="box-lid">
+            <span class="lid-inner"></span>
+          </div>
+          <span class="box-clasp"></span>
+          <div class="box-mouth">
+            <span class="box-glow"></span>
+            <span class="lining-pattern"></span>
+            <div class="slip-stack" id="guoStack" aria-label="过匣纸符"></div>
+          </div>
+          <div class="box-base">
+            <span>过匣</span>
+            <strong><b id="guoCount">0</b> 符</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="judgement-panel">
+        <span class="panel-kicker">今日评语</span>
+        <h2 id="judgementTitle">今日未记</h2>
+        <p id="judgementCopy">写下一功或一过后，这里会生成今日小评。</p>
+        <div class="card-actions">
+          <button class="panel-btn" id="openCard">生成今日卡片</button>
+          <button class="panel-btn" id="sealToday">封存今日</button>
+          <button class="panel-btn muted-btn" id="openArchive">查看往日卡片</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="token-layer" id="tokenLayer" aria-hidden="true">
+      <section class="paper-token" id="paperToken">
+        <span class="paper-pin" id="paperPin"></span>
+        <p class="token-title" id="tokenTitle">写一功</p>
+        <textarea id="tokenText" maxlength="54" rows="3" placeholder="今天做对了什么"></textarea>
+        <div class="token-actions">
+          <button class="ghost-btn" id="cancelToken">先不写</button>
+          <button class="submit-btn" id="submitToken">收入功匣</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="flying-token" id="flyingToken" aria-hidden="true"></div>
+
+    <dialog class="card-dialog" id="cardDialog">
+      <article class="daily-card" id="dailyCard">
+        <p class="card-date" id="cardDate">四月二十九</p>
+        <h2 id="cardTitle">今日未记</h2>
+        <p class="card-copy" id="cardCopy">今日尚未收符，且从第一念开始。</p>
+        <div class="card-counts">
+          <span><b id="cardGong">0</b> 功符</span>
+          <span><b id="cardGuo">0</b> 过符</span>
+        </div>
+        <button class="dialog-btn" id="shareCard">分享卡片</button>
+        <button class="dialog-btn ghost-dialog-btn" data-close="cardDialog">收起</button>
+      </article>
+    </dialog>
+
+    <dialog class="card-dialog" id="archiveDialog">
+      <article class="archive-card">
+        <p class="card-date">往日卡片</p>
+        <div class="archive-list" id="archiveList"></div>
+        <button class="dialog-btn ghost-dialog-btn" data-close="archiveDialog">收起</button>
+      </article>
+    </dialog>
+
+    <dialog class="card-dialog" id="detailDialog">
+      <article class="archive-card detail-card">
+        <p class="card-date" id="detailDate">往日详情</p>
+        <h2 id="detailTitle">功过小结</h2>
+        <section class="detail-columns">
+          <div>
+            <h3>功</h3>
+            <ul id="detailGong"></ul>
+          </div>
+          <div>
+            <h3>过</h3>
+            <ul id="detailGuo"></ul>
+          </div>
+        </section>
+        <button class="dialog-btn ghost-dialog-btn" data-close="detailDialog">收起</button>
+      </article>
+    </dialog>
+
+    <script src="./copy.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

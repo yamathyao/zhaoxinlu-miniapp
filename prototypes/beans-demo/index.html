@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>功过豆 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <main class="board">
+        <div class="paper-glow"></div>
+        <header class="board-header">
+          <p class="board-date">四月二十七</p>
+          <h1>今日功过案</h1>
+          <p class="board-subtitle">日积一念，功过自明</p>
+        </header>
+
+        <section class="tray-grid">
+          <article class="tray tray-gong">
+            <div class="tray-label">
+              <span class="label-dot gong-dot"></span>
+              功槽
+            </div>
+            <div class="bean-vessel vessel-gong" id="gongVessel">
+              <span class="vessel-aura"></span>
+              <span class="vessel-rim"></span>
+              <div class="bean-pit" id="gongPit" aria-label="功槽豆子"></div>
+              <span class="vessel-foot"></span>
+            </div>
+            <div class="tray-meta"><span id="gongCount">0</span> 颗赤豆</div>
+          </article>
+
+          <article class="center-status">
+            <div class="heart-stage" id="heartStage" aria-label="心灯">
+              <canvas class="heart-canvas" id="heartCanvas" width="320" height="320"></canvas>
+              <span class="stage-rim"></span>
+            </div>
+            <span class="status-caption">今日净势</span>
+            <strong class="net-label" id="netLabel">相抵</strong>
+            <p class="status-note" id="statusNote">起心动念，都可轻轻记下一笔。</p>
+          </article>
+
+          <article class="tray tray-guo">
+            <div class="tray-label">
+              <span class="label-dot guo-dot"></span>
+              过槽
+            </div>
+            <div class="bean-vessel vessel-guo" id="guoVessel">
+              <span class="vessel-aura"></span>
+              <span class="vessel-rim"></span>
+              <div class="bean-pit" id="guoPit" aria-label="过槽豆子"></div>
+              <span class="vessel-foot"></span>
+            </div>
+            <div class="tray-meta"><span id="guoCount">0</span> 颗青豆</div>
+          </article>
+        </section>
+
+        <section class="action-row">
+          <button class="action-btn action-gong" id="addGong">记一功</button>
+          <button class="action-btn action-guo" id="addGuo">记一过</button>
+        </section>
+
+        <section class="board-footer">
+          <button class="ghost-btn" id="openSummary">查看今日小结</button>
+          <button class="ghost-btn" id="openShare">预览分享卡片</button>
+        </section>
+      </main>
+
+      <aside class="history-card">
+        <div class="history-title">近七日</div>
+        <ul id="historyList"></ul>
+      </aside>
+    </div>
+
+    <dialog class="sheet" id="summarySheet">
+      <div class="sheet-card">
+        <p class="sheet-kicker">今日小结</p>
+        <h2 id="summaryLabel">功过相抵</h2>
+        <p id="summaryCounts">赤豆 0 · 青豆 0</p>
+        <p class="sheet-copy" id="summaryCopy">有得有失，记下便好。</p>
+        <button class="sheet-close" data-close="summarySheet">收起</button>
+      </div>
+    </dialog>
+
+    <div class="token-layer" id="tokenLayer" aria-hidden="true">
+      <section class="record-token" id="recordToken">
+        <span class="token-seal" id="tokenSeal"></span>
+        <p class="token-kicker" id="tokenKicker">此行记一功</p>
+        <textarea id="recordText" maxlength="48" rows="2" placeholder="今天做对了什么"></textarea>
+        <div class="token-actions">
+          <button class="token-ghost" id="cancelToken">暂不记</button>
+          <button class="token-submit" id="submitToken">记下此功</button>
+        </div>
+      </section>
+    </div>
+    <span class="flying-spark" id="flyingSpark" aria-hidden="true"></span>
+
+    <dialog class="sheet" id="shareSheet">
+      <div class="share-card">
+        <p class="share-date">2026.04.27</p>
+        <h2 class="share-title">今日功过，已记一页</h2>
+        <div class="share-beans">
+          <div class="share-pile share-gong" id="shareGong"></div>
+          <div class="share-divider"></div>
+          <div class="share-pile share-guo" id="shareGuo"></div>
+        </div>
+        <p class="share-result" id="shareResult">相抵</p>
+        <p class="share-copy" id="shareCopy">我在这里轻记一日功过。</p>
+        <button class="sheet-close" data-close="shareSheet">收起</button>
+      </div>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
