@@ -22,4 +22,4 @@ Zhaoxinlu is a mini app for daily self-reflection. Users record small acts of vi
 
 当前目录主要用于整理已有 HTML/CSS/JS 原型。正式微信小程序工程可以在后续基于这个目录继续创建，例如新增 `miniprogram/`、`assets/`、`components/`、`pages/` 等目录。
 
-# zhaoxinlu-miniapp
+# 
