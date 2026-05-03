@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "今日卡片",
+  "usingComponents": {
+    "sealed-card": "../../components/sealed-card/index"
+  }
+}

@@ -1,0 +1,16 @@
+page {
+  --paper: #f3e7d4;
+  --paper-bright: #fffaf0;
+  --ink: #2f251d;
+  --muted: #765f4e;
+  --wood: #7a4d32;
+  --wood-deep: #4c3024;
+  --brass: #c69a54;
+  --brass-dark: #7f5c31;
+  --gong: #ba4a37;
+  --gong-light: #f3aa76;
+  --guo: #486f7a;
+  --guo-light: #9fc3c9;
+  --line: rgba(92, 58, 31, 0.16);
+  --shadow: rgba(65, 40, 21, 0.16);
+}

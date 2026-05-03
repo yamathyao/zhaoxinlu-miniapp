@@ -1,0 +1,24 @@
+<view class="archive-page">
+  <view class="header">
+    <text class="kicker">归档</text>
+    <text class="title">往日卡片</text>
+  </view>
+
+  <block wx:if="{{archive.length}}">
+    <view class="archive-list">
+      <view class="archive-item" wx:for="{{archive}}" wx:key="dateKey">
+        <view>
+          <text class="date">{{item.displayDate}}</text>
+          <text class="result">{{item.judgement.title}}</text>
+        </view>
+        <text class="counts">{{item.gong.length}} 功符 · {{item.guo.length}} 过符</text>
+        <text class="copy">{{item.judgement.copy}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="empty" wx:else>
+    <text>还没有封存的卡片。</text>
+    <button bindtap="goToday">回到今日</button>
+  </view>
+</view>

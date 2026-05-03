@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/today/index",
+    "pages/summary/index",
+    "pages/archive/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "照心录",
+    "navigationBarBackgroundColor": "#F4EADB",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F4EADB"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

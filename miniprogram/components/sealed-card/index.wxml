@@ -1,0 +1,9 @@
+<view class="daily-card">
+  <text class="card-date">{{displayDate}}</text>
+  <text class="card-title">{{judgement.title}}</text>
+  <text class="card-copy">{{judgement.copy}}</text>
+  <view class="card-counts">
+    <text>{{day.gong.length}} 功符</text>
+    <text>{{day.guo.length}} 过符</text>
+  </view>
+</view>

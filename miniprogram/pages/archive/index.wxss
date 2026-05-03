@@ -1,0 +1,75 @@
+@import "../../styles/tokens.wxss";
+
+.archive-page {
+  min-height: 100vh;
+  padding: 42rpx 30rpx;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  margin-bottom: 28rpx;
+}
+
+.kicker,
+.date,
+.counts,
+.copy {
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.title {
+  color: var(--ink);
+  font-size: 48rpx;
+  font-weight: 700;
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.archive-item,
+.empty {
+  padding: 28rpx;
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  background: rgba(255, 250, 240, 0.72);
+  box-shadow: 0 16rpx 44rpx var(--shadow);
+}
+
+.archive-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.result {
+  display: block;
+  margin-top: 8rpx;
+  color: var(--ink);
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.copy {
+  line-height: 1.65;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  color: var(--muted);
+  font-size: 28rpx;
+}
+
+.empty button {
+  height: 82rpx;
+  border-radius: 999rpx;
+  color: #fffaf0;
+  background: linear-gradient(180deg, var(--wood), var(--wood-deep));
+}

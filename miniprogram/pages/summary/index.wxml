@@ -1,0 +1,5 @@
+<view class="summary-page">
+  <sealed-card day="{{today}}" judgement="{{judgement}}" displayDate="{{displayDate}}" />
+  <button class="primary-btn" bindtap="shareCard">生成分享样式</button>
+  <button class="ghost-btn" bindtap="goArchive">查看往日卡片</button>
+</view>

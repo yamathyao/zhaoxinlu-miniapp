@@ -1,0 +1,37 @@
+<view class="today-page">
+  <view class="titlebar">
+    <text class="kicker">双匣试作</text>
+    <text class="title">今日一念，收归两匣</text>
+    <text class="date">{{displayDate}}</text>
+  </view>
+
+  <view class="box-grid">
+    <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" />
+    <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" />
+  </view>
+
+  <view class="judgement-panel">
+    <text class="panel-kicker">今日评语</text>
+    <text class="panel-title">{{judgement.title}}</text>
+    <text class="panel-copy">{{judgement.copy}}</text>
+  </view>
+
+  <paper-slip
+    visible="{{editorVisible}}"
+    type="{{pendingType}}"
+    title="{{editorCopy.title}}"
+    placeholder="{{editorCopy.placeholder}}"
+    submitText="{{editorCopy.submit}}"
+    bind:cancel="closeEditor"
+    bind:submit="submitSlip"
+  />
+
+  <action-bar
+    sealed="{{today.sealed}}"
+    bind:addgong="openGong"
+    bind:addguo="openGuo"
+    bind:summary="goSummary"
+    bind:archive="goArchive"
+    bind:seal="seal"
+  />
+</view>

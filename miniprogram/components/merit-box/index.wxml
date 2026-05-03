@@ -1,0 +1,14 @@
+<view class="ledger-box box-{{type}} {{sealed ? 'is-sealed' : ''}}">
+  <view class="box-lid"></view>
+  <view class="box-mouth">
+    <view class="slip-stack">
+      <view class="stored-slip slip-{{type}}" wx:for="{{slips}}" wx:key="createdAt">
+        <text>{{item.text || emptyText}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="box-base">
+    <text>{{title}}</text>
+    <text class="count">{{count}} 符</text>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+@import "../../styles/tokens.wxss";
+
+.daily-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+  min-height: 560rpx;
+  padding: 48rpx 38rpx;
+  border-radius: 30rpx;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(120, 90, 52, 0.06) 1rpx, transparent 1rpx) 0 0 / 26rpx 26rpx,
+    linear-gradient(180deg, #fff8e9, #efd7b4);
+  box-shadow: 0 24rpx 68rpx var(--shadow);
+}
+
+.card-date {
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+.card-title {
+  margin-top: 80rpx;
+  font-size: 54rpx;
+  font-weight: 700;
+  line-height: 1.16;
+}
+
+.card-copy {
+  color: var(--muted);
+  font-size: 30rpx;
+  line-height: 1.7;
+}
+
+.card-counts {
+  display: flex;
+  gap: 18rpx;
+  margin-top: auto;
+}
+
+.card-counts text {
+  padding: 14rpx 22rpx;
+  border-radius: 999rpx;
+  color: var(--wood-deep);
+  background: rgba(255, 250, 240, 0.7);
+  font-size: 24rpx;
+}

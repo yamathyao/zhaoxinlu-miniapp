@@ -1,0 +1,104 @@
+@import "../../styles/tokens.wxss";
+
+.ledger-box {
+  position: relative;
+  min-height: 360rpx;
+  padding: 28rpx 20rpx 20rpx;
+  border-radius: 28rpx;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.16), transparent 32%),
+    linear-gradient(160deg, rgba(255, 250, 240, 0.78), rgba(222, 201, 174, 0.76)),
+    var(--paper);
+  box-shadow: 0 22rpx 48rpx var(--shadow);
+  overflow: hidden;
+}
+
+.box-lid {
+  position: absolute;
+  left: 14%;
+  top: 14rpx;
+  width: 72%;
+  height: 72rpx;
+  border-radius: 18rpx 18rpx 28rpx 28rpx;
+  background:
+    repeating-linear-gradient(96deg, rgba(255, 239, 198, 0.08) 0 3rpx, rgba(73, 43, 23, 0.08) 4rpx 8rpx),
+    linear-gradient(180deg, #b57b4d 0%, #7d4b31 56%, var(--wood-deep) 100%);
+  box-shadow: 0 18rpx 24rpx rgba(58, 35, 19, 0.2);
+  transform: translateY(-44rpx) rotateX(58deg);
+  transition: transform 520ms ease, top 520ms ease;
+}
+
+.is-sealed .box-lid {
+  top: 66rpx;
+  transform: translateY(0) rotateX(0deg);
+}
+
+.box-mouth {
+  min-height: 232rpx;
+  margin-top: 38rpx;
+  border-radius: 24rpx;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 245, 213, 0.58), transparent 42%),
+    linear-gradient(180deg, rgba(83, 50, 28, 0.18), rgba(67, 38, 22, 0.34));
+  border: 1rpx solid rgba(76, 48, 36, 0.12);
+}
+
+.slip-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  align-content: flex-start;
+  min-height: 232rpx;
+  padding: 34rpx 20rpx;
+}
+
+.stored-slip {
+  width: 72rpx;
+  min-height: 96rpx;
+  padding: 10rpx 8rpx;
+  border-radius: 8rpx;
+  color: var(--ink);
+  font-size: 18rpx;
+  line-height: 1.25;
+  writing-mode: vertical-rl;
+  box-shadow: 0 8rpx 18rpx rgba(47, 31, 20, 0.16);
+  animation: slipIn 360ms ease both;
+}
+
+.slip-gong {
+  background: linear-gradient(180deg, #fff4dd, #f0c7a8);
+  border-left: 5rpx solid var(--gong);
+}
+
+.slip-guo {
+  background: linear-gradient(180deg, #eef6f4, #b8d0d1);
+  border-left: 5rpx solid var(--guo);
+}
+
+.box-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18rpx;
+  color: var(--ink);
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+@keyframes slipIn {
+  from {
+    opacity: 0;
+    transform: translateY(-18rpx) rotate(-6deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}

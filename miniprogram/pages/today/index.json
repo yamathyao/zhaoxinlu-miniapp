@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "今日一念",
+  "usingComponents": {
+    "merit-box": "../../components/merit-box/index",
+    "paper-slip": "../../components/paper-slip/index",
+    "action-bar": "../../components/action-bar/index"
+  }
+}

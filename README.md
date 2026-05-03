@@ -46,9 +46,9 @@ The product name is not tied to one fixed object. Future visual metaphors may co
 
 ## 🛠️ 当前状态 / Current Status
 
-当前目录主要用于整理已有的 HTML / CSS / JS 原型。正式微信小程序工程可以在后续基于这个目录继续创建，例如新增：
+当前目录同时保留 HTML / CSS / JS 原型与正式微信小程序骨架。`prototypes/` 用于快速探索交互与视觉方向，`miniprogram/` 用于后续正式开发。
 
-This directory currently organizes existing HTML / CSS / JS prototypes. A formal WeChat Mini Program project can be created here later, for example by adding:
+This directory now keeps both HTML / CSS / JS prototypes and the formal WeChat Mini Program scaffold. `prototypes/` is for fast interaction and visual exploration, while `miniprogram/` is for ongoing product development.
 
 - `miniprogram/`
 - `assets/`

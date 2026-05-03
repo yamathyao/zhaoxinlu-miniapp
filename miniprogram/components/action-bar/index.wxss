@@ -1,0 +1,54 @@
+@import "../../styles/tokens.wxss";
+
+.action-bar {
+  position: fixed;
+  right: 24rpx;
+  bottom: 24rpx;
+  left: 24rpx;
+  z-index: 10;
+  padding: 18rpx;
+  border: 1rpx solid rgba(76, 48, 36, 0.18);
+  border-radius: 30rpx;
+  background: rgba(255, 250, 240, 0.86);
+  box-shadow: 0 18rpx 58rpx rgba(52, 33, 19, 0.2);
+}
+
+.primary-actions,
+.secondary-actions {
+  display: flex;
+  gap: 14rpx;
+}
+
+.secondary-actions {
+  margin-top: 14rpx;
+}
+
+.record-btn {
+  flex: 1;
+  height: 84rpx;
+  border-radius: 999rpx;
+  color: #fffaf0;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.record-btn[disabled] {
+  opacity: 0.52;
+}
+
+.gong {
+  background: linear-gradient(180deg, var(--gong-light), var(--gong));
+}
+
+.guo {
+  background: linear-gradient(180deg, var(--guo-light), var(--guo));
+}
+
+.secondary-actions button {
+  flex: 1;
+  height: 64rpx;
+  border-radius: 999rpx;
+  color: var(--wood-deep);
+  background: rgba(244, 234, 219, 0.82);
+  font-size: 24rpx;
+}

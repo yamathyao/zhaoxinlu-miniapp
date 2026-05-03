@@ -1,0 +1,79 @@
+@import "../../styles/tokens.wxss";
+
+.mask {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 32rpx;
+  background: rgba(47, 37, 29, 0.34);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.mask.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.paper-token {
+  width: 100%;
+  padding: 32rpx;
+  border-radius: 28rpx;
+  background:
+    linear-gradient(90deg, rgba(120, 90, 52, 0.06) 1rpx, transparent 1rpx) 0 0 / 22rpx 22rpx,
+    linear-gradient(180deg, #fff8e9, #efd7b4);
+  box-shadow: 0 28rpx 70rpx rgba(34, 24, 16, 0.28);
+  transform: translateY(32rpx);
+  transition: transform 260ms ease;
+}
+
+.is-open .paper-token {
+  transform: translateY(0);
+}
+
+.token-title {
+  display: block;
+  margin-bottom: 18rpx;
+  color: var(--ink);
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.token-text {
+  width: 100%;
+  min-height: 180rpx;
+  padding: 22rpx;
+  border-radius: 18rpx;
+  color: var(--ink);
+  background: rgba(255, 250, 240, 0.76);
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.token-actions {
+  display: flex;
+  gap: 18rpx;
+  margin-top: 24rpx;
+}
+
+.ghost-btn,
+.submit-btn {
+  flex: 1;
+  height: 82rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+}
+
+.ghost-btn {
+  color: var(--wood-deep);
+  background: rgba(255, 250, 240, 0.62);
+}
+
+.submit-btn {
+  color: #fffaf0;
+  background: linear-gradient(180deg, var(--wood), var(--wood-deep));
+}

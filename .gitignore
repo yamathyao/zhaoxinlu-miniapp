@@ -30,7 +30,6 @@ coverage/
 
 # WeChat Mini Program local files
 project.private.config.json
-sitemap*.json
 miniprogram_npm/
 unpackage/
 
