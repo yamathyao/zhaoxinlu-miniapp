@@ -81,6 +81,14 @@ This directory now keeps both HTML / CSS / JS prototypes and the formal WeChat M
 - `docs/`：设计说明、范围说明与实现计划。<br>Design notes, scope notes, and implementation plans.
 - `assets/`：后续放置图像、图标与美术资源。<br>Future home for images, icons, and art assets.
 
+## 开发方式 / Development
+
+1. 在微信开发者工具中导入仓库根目录。
+2. 工程入口指向 `miniprogram/`。
+3. 当前版本不需要微信登录、头像、手机号或云开发。
+4. 数据全部保存在本地微信 storage 中。
+5. 测试时可先清空本地缓存，再重新打开首页验证首日状态。
+
 ## ✨ 项目愿景 / Vision
 
 收念匣希望把自我记录做得轻、安静、可持续：不强调评判，而是帮助用户把每天的一念妥帖收好，并在日复一日的小记录里看见自己的变化。
