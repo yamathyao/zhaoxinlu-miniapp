@@ -23,10 +23,19 @@
   pointer-events: auto;
 }
 
+
+
+.paper-host.mode-stage:not(.is-open) {
+  transition-duration: 0ms;
+}
+
+
 .paper-token {
-  width: 100%;
-  max-width: 640rpx;
-  padding: 34rpx;
+  box-sizing: border-box;
+  width: 560rpx;
+  max-width: 560rpx;
+  height: 860rpx;
+  padding: 46rpx 34rpx;
   border-radius: 28rpx;
   background:
     linear-gradient(90deg, rgba(120, 90, 52, 0.06) 1rpx, transparent 1rpx) 0 0 / 22rpx 22rpx,
@@ -41,7 +50,8 @@
 }
 
 .mode-stage .paper-token {
-  width: min(620rpx, 88vw);
+  width: 540rpx;
+  height: 900rpx;
   border-radius: 18rpx;
 }
 
@@ -54,8 +64,9 @@
 }
 
 .token-text {
+  box-sizing: border-box;
   width: 100%;
-  min-height: 220rpx;
+  height: 570rpx;
   padding: 22rpx;
   border-radius: 18rpx;
   color: var(--ink);

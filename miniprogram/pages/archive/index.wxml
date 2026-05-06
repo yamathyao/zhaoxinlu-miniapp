@@ -19,6 +19,9 @@
 
   <view class="empty" wx:else>
     <text>{{copy.archive.empty}}</text>
+  </view>
+
+  <view class="archive-actions" wx:if="{{!archive.length}}">
     <button bindtap="goToday">{{copy.archive.backToday}}</button>
   </view>
 </view>

@@ -1,5 +1,9 @@
 <view class="summary-page">
-  <sealed-card day="{{today}}" judgement="{{judgement}}" displayDate="{{displayDate}}" copy="{{copy}}" />
-  <button class="primary-btn" bindtap="shareCard">{{copy.summary.shareButton}}</button>
-  <button class="ghost-btn" bindtap="goArchive">{{copy.summary.archiveButton}}</button>
+  <view class="summary-card-slot">
+    <sealed-card day="{{today}}" judgement="{{judgement}}" displayDate="{{displayDate}}" copy="{{copy}}" skin="{{theme.assets}}" />
+  </view>
+  <view class="summary-actions">
+    <button class="primary-btn" bindtap="shareCard">{{copy.summary.shareButton}}</button>
+    <button class="ghost-btn" bindtap="goArchive">{{copy.summary.archiveButton}}</button>
+  </view>
 </view>

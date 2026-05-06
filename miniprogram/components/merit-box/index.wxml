@@ -1,8 +1,10 @@
 <view class="ledger-box box-{{type}} {{sealed ? 'is-sealed' : ''}}" bindtap="openBox">
+  <image class="box-body-skin" wx:if="{{skin.boxBody}}" src="{{skin.boxBody}}" mode="aspectFill" />
   <view class="box-lid"></view>
+  <image class="box-lid-skin" wx:if="{{skin.boxLid}}" src="{{skin.boxLid}}" mode="aspectFill" />
   <view class="box-mouth">
     <view class="slip-stack">
-      <view class="stored-slip slip-{{type}}" wx:for="{{slips}}" wx:key="createdAt">
+      <view class="stored-slip slip-{{type}} stack-slot-{{item.stackSlot}}" wx:for="{{stackSlips}}" wx:key="createdAt">
         <text>{{item.text || emptyText}}</text>
       </view>
     </view>

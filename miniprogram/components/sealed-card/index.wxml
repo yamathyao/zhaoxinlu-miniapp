@@ -1,7 +1,15 @@
-<view class="daily-card">
-  <text class="card-date">{{displayDate}}</text>
-  <text class="card-title">{{judgement.title}}</text>
-  <text class="card-copy">{{judgement.copy}}</text>
+<view class="daily-card {{lampState}}">
+  <image class="card-bg-skin" wx:if="{{skin.cardBg}}" src="{{skin.cardBg}}" mode="aspectFill" />
+  <image class="card-heart-lamp-image" wx:if="{{skin.heartLamp}}" src="{{skin.heartLamp}}" mode="aspectFit" />
+  <view class="card-heart-lamp" wx:else>
+    <view class="card-lamp-flame"></view>
+    <view class="card-lamp-bowl"></view>
+  </view>
+  <view class="card-main">
+    <text class="card-date">{{displayDate}}</text>
+    <text class="card-title">{{judgement.title}}</text>
+    <text class="card-copy">{{judgement.copy}}</text>
+  </view>
   <view class="card-counts">
     <text>{{day.gong.length}} {{copy.domain.gong.slipName}}</text>
     <text>{{day.guo.length}} {{copy.domain.guo.slipName}}</text>

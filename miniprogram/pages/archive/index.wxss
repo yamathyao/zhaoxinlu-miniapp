@@ -2,7 +2,7 @@
 
 .archive-page {
   min-height: 100vh;
-  padding: 42rpx 30rpx;
+  padding: 42rpx 30rpx 190rpx;
 }
 
 .header {
@@ -67,7 +67,15 @@
   font-size: 28rpx;
 }
 
-.empty button {
+.archive-actions {
+  position: fixed;
+  right: 30rpx;
+  bottom: calc(48rpx + env(safe-area-inset-bottom));
+  left: 30rpx;
+  z-index: 20;
+}
+
+.archive-actions button {
   height: 82rpx;
   border-radius: 999rpx;
   color: #fffaf0;

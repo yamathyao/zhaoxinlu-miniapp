@@ -33,13 +33,13 @@ The name "Shounian Box" emphasizes a gentle action: collecting thoughts worth re
 
 ## 🚧 当前开发进度 / Development Progress
 
-小程序主体已经从静态骨架推进到可交互原型，当前重点放在首页记录体验与“收进匣中”的仪式感。
+小程序主体已经从静态骨架推进到可交互原型，当前重点放在默认版体验收口、资源配置边界预留，以及首页记录流程的仪式感与稳定性。
 
-The Mini Program has moved from a static scaffold into an interactive prototype, with the current focus on the home recording flow and the ritual feeling of placing thoughts into boxes.
+The Mini Program has moved from a static scaffold into an interactive prototype, with the current focus on closing the default experience, preserving resource boundaries, and stabilizing the home recording ritual.
 
 ### 🔄 进行中 / In Progress
 
-- **默认资源配置分离**：先保持默认版本完整可用，同时把话术、主题 token 与静态资源路径逐步收拢到配置入口，为后续更换皮肤或话术预留边界；本阶段不做外部下载、安装页或资源市场。<br>**Default resource separation**: keep the default version fully usable while gradually moving copy, theme tokens, and static asset paths behind config entry points, leaving room for future skin or copy replacement. External downloads, install flows, and resource marketplaces are out of scope for this stage.
+- **默认版体验收口**：继续打磨首页写符、收入匣中、匣中查看、封存卡片和归档页的视觉稳定性；资源与话术分离只做边界预留，不接入外部下载或安装流程。<br>**Default experience closeout**: continue polishing the home writing flow, box collection, box viewer, sealed card, and archive visuals; resource and copy separation remains a boundary reservation only, without external download or install flows.
 
 ### ✅ 已完成 / Completed
 
@@ -51,10 +51,12 @@ The Mini Program has moved from a static scaffold into an interactive prototype,
 - 🔍 **匣中查看**：点击功匣或过匣会放大匣子，展示匣内符文；点击单枚符文可查看具体内容，点击空白处退出。<br>**Box viewer**: tapping a box enlarges it, shows the stored slips, lets the user inspect each slip, and closes when tapping outside.
 - 🎴 **封存卡片与归档基础**：已有今日评语、封存卡片和归档页面的基础结构。<br>**Sealed card and archive base**: includes daily judgement, sealed-card presentation, and archive page scaffolding.
 - 🧹 **编码整理**：小程序源文件已处理为 UTF-8 无 BOM，避免 WXSS / WXML 编译乱码。<br>**Encoding cleanup**: source files are kept as UTF-8 without BOM to avoid WXSS / WXML compilation issues.
+- 🧩 **默认资源边界一期**：话术、主题 token、资源映射和默认静态素材已收敛到配置与服务入口，心灯也已作为主题资源槽接入。<br>**Default resource boundary phase 1**: copy, theme tokens, asset mapping, and default static assets are now routed through config and service entry points, with the heart lamp connected as a theme asset slot.
+- 🪔 **心灯与符文体验打磨**：心灯会按功过差值阶梯变亮或变暗，匣中符文改为固定空间内堆叠，避免撑高匣子。<br>**Heart-lamp and slip polish**: the heart lamp brightens or dims by virtue/fault balance, and box slips now stack inside a fixed space without stretching the box.
 
 ### 📝 待继续 / Next
 
-- 继续完成默认资源配置分离，让页面和组件优先消费配置对象，而不是散落硬编码文案。<br>Continue default resource separation so pages and components consume config objects instead of scattered hard-coded copy.
+- 在微信开发者工具中回归验证今日页写符弹层、符文飞入匣子、心灯位置、封存卡片和归档页底部按钮，优先收口默认体验。<br>Run a WeChat DevTools regression pass for the writing modal, slip-to-box animation, heart-lamp placement, sealed card, and archive bottom controls, prioritizing the default experience closeout.
 - 打磨匣子放大与退出时的过渡动画，让“推近匣子”的感觉更连贯。<br>Refine the zoom-in and exit transition so opening a box feels more continuous.
 - 增加更细的符纸纹理、印章、边框与书写排版。<br>Add richer paper textures, seals, borders, and writing layout details.
 - 完善归档页的日期浏览、历史回看与长期趋势呈现。<br>Improve archive browsing, historical review, and long-term trend presentation.
@@ -74,6 +76,8 @@ The Mini Program has moved from a static scaffold into an interactive prototype,
 | `docs/specs/2026-04-27-gongguo-beans-design.md` | 早期玩法与设计说明。<br>Early gameplay and design notes. |
 | `docs/plans/2026-04-27-gongguo-demo-plan.md` | 原型实现计划记录。<br>Prototype implementation plan. |
 | `docs/specs/2026-05-03-current-scope.md` | 当前产品范围说明。<br>Current scope note. |
+| `docs/specs/2026-05-06-resource-boundary-spec.md` | 默认资源边界与未来静态资源分离规范。<br>Default resource boundary and future static-resource separation spec. |
+| `docs/progress/2026-05-06-work-progress.md` | 2026-05-06 今日开发内容、验证与下一步。<br>2026-05-06 work progress, validation, and next steps. |
 
 ## 🛠️ 当前状态 / Current Status
 

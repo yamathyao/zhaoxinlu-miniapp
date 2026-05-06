@@ -2,7 +2,8 @@
 
 .ledger-box {
   position: relative;
-  min-height: 360rpx;
+  box-sizing: border-box;
+  height: 382rpx;
   padding: 28rpx 20rpx 20rpx;
   border-radius: 28rpx;
   background:
@@ -12,6 +13,44 @@
   box-shadow: 0 22rpx 48rpx var(--shadow);
   overflow: hidden;
   animation: boxArrive 520ms cubic-bezier(.2, .78, .2, 1) both;
+}
+
+.box-body-skin,
+.box-lid-skin {
+  position: absolute;
+  pointer-events: none;
+}
+
+.box-body-skin {
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.42;
+}
+
+.box-lid-skin {
+  left: 14%;
+  top: 14rpx;
+  z-index: 6;
+  width: 72%;
+  height: 72rpx;
+  border-radius: 18rpx 18rpx 28rpx 28rpx;
+  opacity: 0.7;
+  transition:
+    left 620ms cubic-bezier(.2, .78, .2, 1),
+    top 620ms cubic-bezier(.2, .78, .2, 1),
+    width 620ms cubic-bezier(.2, .78, .2, 1),
+    height 620ms cubic-bezier(.2, .78, .2, 1),
+    border-radius 620ms ease;
+}
+
+.is-sealed .box-lid-skin {
+  left: 7%;
+  top: 88rpx;
+  width: 86%;
+  height: 178rpx;
+  border-radius: 26rpx;
 }
 
 .ledger-box::after {
@@ -72,7 +111,7 @@
 
 .box-mouth {
   position: relative;
-  min-height: 232rpx;
+  height: 238rpx;
   margin-top: 38rpx;
   border-radius: 24rpx;
   background:
@@ -80,6 +119,7 @@
     linear-gradient(180deg, rgba(83, 50, 28, 0.18), rgba(67, 38, 22, 0.34));
   border: 1rpx solid rgba(76, 48, 36, 0.12);
   transition: filter 520ms ease, opacity 520ms ease;
+  overflow: hidden;
 }
 
 .is-sealed .box-mouth {
@@ -88,12 +128,9 @@
 }
 
 .slip-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10rpx;
-  align-content: flex-start;
-  min-height: 232rpx;
-  padding: 34rpx 20rpx;
+  position: relative;
+  height: 238rpx;
+  padding: 0;
   transition: opacity 420ms ease, transform 420ms ease;
 }
 
@@ -103,20 +140,30 @@
 }
 
 .stored-slip {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: 20rpx;
+  box-sizing: border-box;
   width: 54rpx;
-  min-height: 136rpx;
-  padding: 18rpx 8rpx 14rpx;
+  height: 172rpx;
+  padding: 20rpx 8rpx 14rpx;
   border-radius: 999rpx 999rpx 10rpx 10rpx;
   color: rgba(47, 37, 29, 0.86);
-  font-size: 19rpx;
-  line-height: 1.2;
+  font-size: 18rpx;
+  line-height: 1.18;
   writing-mode: vertical-rl;
   letter-spacing: 1rpx;
+  overflow: hidden;
   box-shadow:
     inset 0 1rpx 0 rgba(255, 255, 255, 0.5),
     0 8rpx 18rpx rgba(47, 31, 20, 0.16);
   animation: slipIn 360ms ease both;
+}
+
+.stored-slip text {
+  display: block;
+  max-height: 124rpx;
+  overflow: hidden;
 }
 
 .stored-slip::before {
@@ -142,6 +189,47 @@
   opacity: 0.68;
 }
 
+
+.stack-slot-1 {
+  z-index: 8;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.stack-slot-2 {
+  z-index: 7;
+  transform: translateX(-84%) translateY(10rpx) rotate(7deg);
+}
+
+.stack-slot-3 {
+  z-index: 6;
+  transform: translateX(-16%) translateY(8rpx) rotate(-8deg);
+}
+
+.stack-slot-4 {
+  z-index: 5;
+  transform: translateX(-118%) translateY(22rpx) rotate(-11deg);
+}
+
+.stack-slot-5 {
+  z-index: 4;
+  transform: translateX(18%) translateY(22rpx) rotate(11deg);
+}
+
+.stack-slot-6 {
+  z-index: 3;
+  transform: translateX(-68%) translateY(34rpx) rotate(3deg);
+}
+
+.stack-slot-7 {
+  z-index: 2;
+  transform: translateX(-32%) translateY(36rpx) rotate(-4deg);
+}
+
+.stack-slot-8 {
+  z-index: 1;
+  transform: translateX(-50%) translateY(46rpx) rotate(2deg);
+  opacity: 0.86;
+}
 .slip-gong {
   background:
     linear-gradient(90deg, rgba(137, 91, 48, 0.08) 1rpx, transparent 1rpx) 0 0 / 10rpx 10rpx,
@@ -195,11 +283,9 @@
 @keyframes slipIn {
   from {
     opacity: 0;
-    transform: translateY(-18rpx) rotate(-6deg);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) rotate(0deg);
   }
 }

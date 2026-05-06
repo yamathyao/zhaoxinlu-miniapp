@@ -5,6 +5,7 @@ const {
   getSlipName,
   getTokenCopy,
 } = require("../../services/copy-service");
+const { getTheme } = require("../../services/theme-service");
 const {
   addSlip,
   getJudgement,
@@ -15,6 +16,7 @@ const {
 } = require("../../services/record-service");
 
 const copy = getCopy();
+const SLIP_FLY_MS = 760;
 
 function getSlipText(type, slip) {
   if (slip && slip.text) {
@@ -35,9 +37,46 @@ function buildViewerSlips(type, slips, selectedIndex) {
   }));
 }
 
+function getLampState(day) {
+  const gongCount = day.gong.length;
+  const guoCount = day.guo.length;
+  const balance = gongCount - guoCount;
+  const level = getLampLevel(Math.abs(balance));
+
+  if (level === 0) {
+    return "lamp-balanced lamp-level-0";
+  }
+
+  return `${balance > 0 ? "lamp-bright" : "lamp-dim"} lamp-level-${level}`;
+}
+
+function getLampLevel(count) {
+  if (count >= 10) {
+    return 10;
+  }
+
+  if (count >= 5) {
+    return 5;
+  }
+
+  if (count >= 3) {
+    return 3;
+  }
+
+  if (count >= 1) {
+    return 1;
+  }
+
+  return 0;
+}
+
 Page({
+  editorOpenTimer: null,
+  sendTimer: null,
+
   data: {
     copy,
+    theme: getTheme(),
     scene: "intro",
     dailyLine: copy.intro.line,
     flyingText: "",
@@ -49,6 +88,8 @@ Page({
       sealed: false,
     },
     judgement: {},
+    judgementTone: "empty",
+    lampState: "lamp-balanced lamp-level-0",
     displayDate: "",
     editorVisible: false,
     pendingType: "gong",
@@ -70,11 +111,33 @@ Page({
     const records = loadRecords();
     const judgement = getJudgement(records.today);
     this.setData({
+      theme: getTheme(),
       records,
       today: records.today,
       judgement,
+      judgementTone: this.getJudgementTone(records.today),
+      lampState: getLampState(records.today),
       displayDate: formatDisplayDate(records.today.dateKey),
     });
+  },
+
+  getJudgementTone(day) {
+    const gongCount = day.gong.length;
+    const guoCount = day.guo.length;
+
+    if (gongCount === 0 && guoCount === 0) {
+      return "empty";
+    }
+
+    if (gongCount > guoCount) {
+      return "gong";
+    }
+
+    if (gongCount < guoCount) {
+      return "guo";
+    }
+
+    return "balanced";
   },
 
   enterDesk() {
@@ -97,6 +160,8 @@ Page({
       return;
     }
 
+    clearTimeout(this.editorOpenTimer);
+    clearTimeout(this.sendTimer);
     this.setData({
       scene: "writing",
       editorVisible: true,
@@ -104,8 +169,8 @@ Page({
       editorCopy: getTokenCopy(type),
     });
   },
-
   closeEditor() {
+    clearTimeout(this.editorOpenTimer);
     this.setData({
       scene: "idle",
       editorVisible: false,
@@ -121,21 +186,23 @@ Page({
       today: addSlip(this.data.today, type, text),
     };
 
+    clearTimeout(this.editorOpenTimer);
+    clearTimeout(this.sendTimer);
     this.setData({
       scene: "sending",
       flyingText: text || tokenCopy.emptySlip,
       editorVisible: false,
     });
 
-    setTimeout(() => {
+    this.sendTimer = setTimeout(() => {
       saveRecords(records);
-      wx.showToast({ title: tokenCopy.status, icon: "none" });
       this.refresh();
       this.setData({
         scene: "idle",
         flyingText: "",
       });
-    }, 760);
+      wx.showToast({ title: tokenCopy.status, icon: "none" });
+    }, SLIP_FLY_MS);
   },
 
   seal() {

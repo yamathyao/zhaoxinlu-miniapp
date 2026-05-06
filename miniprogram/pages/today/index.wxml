@@ -1,4 +1,5 @@
 <view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible || boxViewerVisible ? 'has-modal' : ''}}">
+  <image class="page-skin" wx:if="{{theme.assets.paperTexture}}" src="{{theme.assets.paperTexture}}" mode="aspectFill" />
   <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
     <text class="intro-kicker">{{copy.intro.kicker}}</text>
     <text class="intro-line">{{dailyLine}}</text>
@@ -18,12 +19,20 @@
     </view>
 
     <view class="box-grid">
-      <merit-box type="gong" title="{{copy.domain.gong.boxTitle}}" count="{{today.gong.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.gong}}" emptyText="{{copy.token.gong.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
-      <merit-box type="guo" title="{{copy.domain.guo.boxTitle}}" count="{{today.guo.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.guo}}" emptyText="{{copy.token.guo.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="gong" skin="{{theme.assets}}" title="{{copy.domain.gong.boxTitle}}" count="{{today.gong.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.gong}}" emptyText="{{copy.token.gong.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="guo" skin="{{theme.assets}}" title="{{copy.domain.guo.boxTitle}}" count="{{today.guo.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.guo}}" emptyText="{{copy.token.guo.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
     </view>
   </view>
 
-  <view class="judgement-panel">
+  <view class="heart-lamp-wrap judgement-{{judgementTone}} {{lampState}}">
+    <image class="heart-lamp-image" wx:if="{{theme.assets.heartLamp}}" src="{{theme.assets.heartLamp}}" mode="aspectFit" />
+    <view class="heart-lamp" wx:else>
+      <view class="lamp-flame"></view>
+      <view class="lamp-bowl"></view>
+    </view>
+  </view>
+
+  <view class="judgement-panel judgement-{{judgementTone}}">
     <text class="panel-kicker">{{copy.panel.judgementKicker}}</text>
     <text class="panel-title">{{judgement.title}}</text>
     <text class="panel-copy">{{judgement.copy}}</text>

@@ -17,9 +17,13 @@ const DEFAULT_THEME = {
     guoLight: "#9fc3c9",
   },
   assets: {
-    paperTexture: "",
-    boxTexture: "",
-    sealIcon: "",
+    paperTexture: "/assets/themes/default/paper-texture.png",
+    boxTexture: "/assets/themes/default/box-body.png",
+    boxBody: "/assets/themes/default/box-body.png",
+    boxLid: "/assets/themes/default/box-lid.png",
+    cardBg: "/assets/themes/default/card-bg.png",
+    sealIcon: "/assets/themes/default/seal.png",
+    heartLamp: "/assets/themes/default/heart-lamp.png",
   },
 };
 
