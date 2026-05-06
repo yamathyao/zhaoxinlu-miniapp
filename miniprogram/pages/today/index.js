@@ -1,5 +1,10 @@
-const { TOKEN_COPY } = require("../../constants/copy");
 const { formatDisplayDate } = require("../../utils/date");
+const {
+  getBoxTitle,
+  getCopy,
+  getSlipName,
+  getTokenCopy,
+} = require("../../services/copy-service");
 const {
   addSlip,
   getJudgement,
@@ -9,21 +14,18 @@ const {
   unsealToday,
 } = require("../../services/record-service");
 
-const BOX_VIEWER_TITLE = {
-  gong: "功匣",
-  guo: "过匣",
-};
+const copy = getCopy();
 
 function getSlipText(type, slip) {
   if (slip && slip.text) {
     return slip.text;
   }
 
-  return TOKEN_COPY[type].emptySlip;
+  return getTokenCopy(type).emptySlip;
 }
 
 function buildViewerSlips(type, slips, selectedIndex) {
-  const prefix = type === "gong" ? "功符" : "过符";
+  const prefix = getSlipName(type);
 
   return slips.map((slip, index) => ({
     key: `${slip.createdAt || "draft"}-${index}`,
@@ -35,8 +37,9 @@ function buildViewerSlips(type, slips, selectedIndex) {
 
 Page({
   data: {
+    copy,
     scene: "intro",
-    dailyLine: "能看见一念，便已离它近了一步。",
+    dailyLine: copy.intro.line,
     flyingText: "",
     records: null,
     today: {
@@ -49,13 +52,13 @@ Page({
     displayDate: "",
     editorVisible: false,
     pendingType: "gong",
-    editorCopy: TOKEN_COPY.gong,
+    editorCopy: getTokenCopy("gong"),
     boxViewerVisible: false,
     boxViewerType: "gong",
-    boxViewerTitle: "功匣",
+    boxViewerTitle: getBoxTitle("gong"),
     boxViewerSlips: [],
     selectedSlipIndex: 0,
-    selectedSlipText: "点选一枚符查看内容",
+    selectedSlipText: copy.viewer.detailPlaceholder,
     hasSelectedSlip: false,
   },
 
@@ -90,7 +93,7 @@ Page({
 
   openEditor(type) {
     if (this.data.today.sealed) {
-      wx.showToast({ title: "今日已封存", icon: "none" });
+      wx.showToast({ title: copy.feedback.todaySealed, icon: "none" });
       return;
     }
 
@@ -98,7 +101,7 @@ Page({
       scene: "writing",
       editorVisible: true,
       pendingType: type,
-      editorCopy: TOKEN_COPY[type],
+      editorCopy: getTokenCopy(type),
     });
   },
 
@@ -112,6 +115,7 @@ Page({
   submitSlip(event) {
     const type = this.data.pendingType;
     const text = event.detail.text;
+    const tokenCopy = getTokenCopy(type);
     const records = {
       ...this.data.records,
       today: addSlip(this.data.today, type, text),
@@ -119,13 +123,13 @@ Page({
 
     this.setData({
       scene: "sending",
-      flyingText: text || TOKEN_COPY[type].emptySlip,
+      flyingText: text || tokenCopy.emptySlip,
       editorVisible: false,
     });
 
     setTimeout(() => {
       saveRecords(records);
-      wx.showToast({ title: TOKEN_COPY[type].status, icon: "none" });
+      wx.showToast({ title: tokenCopy.status, icon: "none" });
       this.refresh();
       this.setData({
         scene: "idle",
@@ -147,7 +151,7 @@ Page({
       return;
     }
 
-    wx.showToast({ title: "今日已解封", icon: "none" });
+    wx.showToast({ title: copy.feedback.todayUnsealed, icon: "none" });
   },
 
   openBoxViewer(event) {
@@ -162,10 +166,10 @@ Page({
     this.setData({
       boxViewerVisible: true,
       boxViewerType: type,
-      boxViewerTitle: BOX_VIEWER_TITLE[type],
+      boxViewerTitle: getBoxTitle(type),
       boxViewerSlips: buildViewerSlips(type, slips, selectedIndex),
       selectedSlipIndex: selectedIndex,
-      selectedSlipText: slips.length ? getSlipText(type, slips[0]) : "匣中还没有符。",
+      selectedSlipText: slips.length ? getSlipText(type, slips[0]) : copy.viewer.empty,
       hasSelectedSlip: Boolean(slips.length),
     });
   },
@@ -175,7 +179,7 @@ Page({
       boxViewerVisible: false,
       boxViewerSlips: [],
       selectedSlipIndex: 0,
-      selectedSlipText: "点选一枚符查看内容",
+      selectedSlipText: copy.viewer.detailPlaceholder,
       hasSelectedSlip: false,
     });
   },
@@ -190,7 +194,7 @@ Page({
     this.setData({
       boxViewerSlips: buildViewerSlips(type, slips, index),
       selectedSlipIndex: index,
-      selectedSlipText: slips[index] ? getSlipText(type, slips[index]) : "点选一枚符查看内容",
+      selectedSlipText: slips[index] ? getSlipText(type, slips[index]) : copy.viewer.detailPlaceholder,
       hasSelectedSlip: Boolean(slips[index]),
     });
   },

@@ -4,6 +4,17 @@ Component({
       type: Boolean,
       value: false,
     },
+    copy: {
+      type: Object,
+      value: {
+        addGong: "",
+        addGuo: "",
+        summary: "",
+        seal: "",
+        unseal: "",
+        archive: "",
+      },
+    },
   },
 
   methods: {

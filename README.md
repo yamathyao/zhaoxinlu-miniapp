@@ -37,6 +37,10 @@ The name "Shounian Box" emphasizes a gentle action: collecting thoughts worth re
 
 The Mini Program has moved from a static scaffold into an interactive prototype, with the current focus on the home recording flow and the ritual feeling of placing thoughts into boxes.
 
+### 🔄 进行中 / In Progress
+
+- **默认资源配置分离**：先保持默认版本完整可用，同时把话术、主题 token 与静态资源路径逐步收拢到配置入口，为后续更换皮肤或话术预留边界；本阶段不做外部下载、安装页或资源市场。<br>**Default resource separation**: keep the default version fully usable while gradually moving copy, theme tokens, and static asset paths behind config entry points, leaving room for future skin or copy replacement. External downloads, install flows, and resource marketplaces are out of scope for this stage.
+
 ### ✅ 已完成 / Completed
 
 - 🪶 **入场妙语**：进入小程序后先展示一句自省短句，再轻触进入今日桌面。<br>**Opening line**: shows a reflective quote before entering today's desk.
@@ -50,6 +54,7 @@ The Mini Program has moved from a static scaffold into an interactive prototype,
 
 ### 📝 待继续 / Next
 
+- 继续完成默认资源配置分离，让页面和组件优先消费配置对象，而不是散落硬编码文案。<br>Continue default resource separation so pages and components consume config objects instead of scattered hard-coded copy.
 - 打磨匣子放大与退出时的过渡动画，让“推近匣子”的感觉更连贯。<br>Refine the zoom-in and exit transition so opening a box feels more continuous.
 - 增加更细的符纸纹理、印章、边框与书写排版。<br>Add richer paper textures, seals, borders, and writing layout details.
 - 完善归档页的日期浏览、历史回看与长期趋势呈现。<br>Improve archive browsing, historical review, and long-term trend presentation.

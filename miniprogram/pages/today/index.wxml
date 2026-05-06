@@ -1,13 +1,13 @@
 <view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible || boxViewerVisible ? 'has-modal' : ''}}">
   <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
-    <text class="intro-kicker">收念匣</text>
+    <text class="intro-kicker">{{copy.intro.kicker}}</text>
     <text class="intro-line">{{dailyLine}}</text>
-    <text class="intro-hint">轻触启匣</text>
+    <text class="intro-hint">{{copy.intro.hint}}</text>
   </view>
 
   <view class="titlebar">
-    <text class="kicker">双匣试作</text>
-    <text class="title">今日一念，收归两匣</text>
+    <text class="kicker">{{copy.app.kicker}}</text>
+    <text class="title">{{copy.app.title}}</text>
     <text class="date">{{displayDate}}</text>
   </view>
 
@@ -18,19 +18,20 @@
     </view>
 
     <view class="box-grid">
-      <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
-      <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="gong" title="{{copy.domain.gong.boxTitle}}" count="{{today.gong.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.gong}}" emptyText="{{copy.token.gong.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="guo" title="{{copy.domain.guo.boxTitle}}" count="{{today.guo.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.guo}}" emptyText="{{copy.token.guo.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
     </view>
   </view>
 
   <view class="judgement-panel">
-    <text class="panel-kicker">今日评语</text>
+    <text class="panel-kicker">{{copy.panel.judgementKicker}}</text>
     <text class="panel-title">{{judgement.title}}</text>
     <text class="panel-copy">{{judgement.copy}}</text>
   </view>
 
   <action-bar
     sealed="{{today.sealed}}"
+    copy="{{copy.actionBar}}"
     bind:addgong="openGong"
     bind:addguo="openGuo"
     bind:summary="goSummary"
@@ -43,7 +44,7 @@
       <view class="viewer-lid"></view>
       <view class="viewer-header">
         <text class="viewer-kicker">{{boxViewerTitle}}</text>
-        <text class="viewer-count">{{boxViewerSlips.length}} 符</text>
+        <text class="viewer-count">{{boxViewerSlips.length}} {{copy.viewer.countUnit}}</text>
       </view>
       <view class="viewer-body">
         <view class="viewer-mouth">
@@ -59,11 +60,11 @@
               <text class="viewer-slip-preview">{{item.preview}}</text>
             </view>
           </view>
-          <view class="viewer-empty" wx:else>匣中还没有符。</view>
+          <view class="viewer-empty" wx:else>{{copy.viewer.empty}}</view>
         </view>
       </view>
       <view class="slip-detail {{hasSelectedSlip ? 'is-visible' : ''}}">
-        <text class="detail-title">符文</text>
+        <text class="detail-title">{{copy.viewer.detailTitle}}</text>
         <text class="detail-copy">{{selectedSlipText}}</text>
       </view>
     </view>
@@ -76,6 +77,7 @@
     title="{{editorCopy.title}}"
     placeholder="{{editorCopy.placeholder}}"
     submitText="{{editorCopy.submit}}"
+    cancelText="{{copy.paperSlip.cancel}}"
     disabled="{{scene === 'sending'}}"
     bind:cancel="closeEditor"
     bind:submit="submitSlip"

@@ -9,6 +9,6 @@
   </view>
   <view class="box-base">
     <text>{{title}}</text>
-    <text class="count">{{count}} 符</text>
+    <text class="count">{{count}} {{countUnit}}</text>
   </view>
 </view>

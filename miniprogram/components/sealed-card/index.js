@@ -15,5 +15,14 @@ Component({
       type: String,
       value: "",
     },
+    copy: {
+      type: Object,
+      value: {
+        domain: {
+          gong: { slipName: "" },
+          guo: { slipName: "" },
+        },
+      },
+    },
   },
 });

@@ -3,7 +3,7 @@
   <text class="card-title">{{judgement.title}}</text>
   <text class="card-copy">{{judgement.copy}}</text>
   <view class="card-counts">
-    <text>{{day.gong.length}} 功符</text>
-    <text>{{day.guo.length}} 过符</text>
+    <text>{{day.gong.length}} {{copy.domain.gong.slipName}}</text>
+    <text>{{day.guo.length}} {{copy.domain.guo.slipName}}</text>
   </view>
 </view>

@@ -10,7 +10,7 @@ Component({
     },
     title: {
       type: String,
-      value: "写一功",
+      value: "",
     },
     placeholder: {
       type: String,
@@ -18,7 +18,11 @@ Component({
     },
     submitText: {
       type: String,
-      value: "收入功匣",
+      value: "",
+    },
+    cancelText: {
+      type: String,
+      value: "",
     },
     mode: {
       type: String,

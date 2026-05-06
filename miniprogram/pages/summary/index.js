@@ -1,8 +1,12 @@
+const { getCopy } = require("../../services/copy-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
 
+const copy = getCopy();
+
 Page({
   data: {
+    copy,
     today: {
       dateKey: "",
       gong: [],
@@ -23,7 +27,7 @@ Page({
   },
 
   shareCard() {
-    wx.showToast({ title: "分享卡片样式待打磨", icon: "none" });
+    wx.showToast({ title: copy.summary.sharePending, icon: "none" });
   },
 
   goArchive() {

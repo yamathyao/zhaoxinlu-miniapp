@@ -1,5 +1,3 @@
-const { TOKEN_COPY } = require("../../constants/copy");
-
 Component({
   properties: {
     type: {
@@ -8,15 +6,23 @@ Component({
     },
     title: {
       type: String,
-      value: "功匣",
+      value: "",
     },
     count: {
       type: Number,
       value: 0,
     },
+    countUnit: {
+      type: String,
+      value: "",
+    },
     slips: {
       type: Array,
       value: [],
+    },
+    emptyText: {
+      type: String,
+      value: "",
     },
     sealed: {
       type: Boolean,
@@ -24,22 +30,10 @@ Component({
     },
   },
 
-  data: {
-    emptyText: TOKEN_COPY.gong.emptySlip,
-  },
-
   methods: {
     openBox() {
       this.triggerEvent("open", {
         type: this.properties.type,
-      });
-    },
-  },
-
-  observers: {
-    type(type) {
-      this.setData({
-        emptyText: TOKEN_COPY[type].emptySlip,
       });
     },
   },

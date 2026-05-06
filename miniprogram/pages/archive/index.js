@@ -1,8 +1,12 @@
+const { getCopy } = require("../../services/copy-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
 
+const copy = getCopy();
+
 Page({
   data: {
+    copy,
     archive: [],
   },
 
