@@ -1,6 +1,8 @@
 <view class="summary-page">
   <view class="summary-card-slot">
-    <sealed-card day="{{today}}" judgement="{{judgement}}" displayDate="{{displayDate}}" copy="{{copy}}" skin="{{theme.assets}}" />
+    <view class="summary-card-shell">
+      <sealed-card day="{{today}}" judgement="{{judgement}}" displayDate="{{displayDate}}" copy="{{copy}}" skin="{{theme.assets}}" />
+    </view>
   </view>
   <view class="summary-actions">
     <button class="primary-btn" bindtap="shareCard">{{copy.summary.shareButton}}</button>

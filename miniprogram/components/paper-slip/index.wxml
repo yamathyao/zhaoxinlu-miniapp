@@ -1,10 +1,25 @@
 <view class="paper-host mode-{{mode}} {{visible ? 'is-open' : ''}}" catchtap="handleMaskTap">
-  <view class="paper-token token-{{type}}" catchtap="noop">
-    <text class="token-title">{{title}}</text>
-    <textarea class="token-text" value="{{text}}" maxlength="54" placeholder="{{placeholder}}" disabled="{{disabled}}" bindinput="handleInput" />
-    <view class="token-actions">
-      <button class="ghost-btn" disabled="{{disabled}}" bindtap="cancel">{{cancelText}}</button>
-      <button class="submit-btn" disabled="{{disabled}}" bindtap="submit">{{submitText}}</button>
+  <view class="paper-token-wrap" style="transform: translateY(-{{paperOffsetY}}rpx);" catchtap="noop">
+    <view class="paper-token token-{{type}}">
+      <image class="paper-token-skin" wx:if="{{paperSkin}}" src="{{paperSkin}}" mode="aspectFill" />
+      <text class="token-title">{{title}}</text>
+      <textarea
+        class="token-text"
+        value="{{text}}"
+        maxlength="54"
+        placeholder="{{placeholder}}"
+        disabled="{{disabled}}"
+        bindinput="handleInput"
+        bindfocus="handleFocus"
+        bindblur="handleBlur"
+        bindkeyboardheightchange="handleKeyboardHeightChange"
+        cursor-spacing="28"
+        adjust-position="false"
+      />
+      <view class="token-actions">
+        <button class="ghost-btn {{disabled ? 'is-disabled' : ''}}" disabled="{{disabled}}" bindtap="cancel">{{cancelText}}</button>
+        <button class="submit-btn {{disabled ? 'is-disabled' : ''}}" disabled="{{disabled}}" bindtap="submit">{{submitText}}</button>
+      </view>
     </view>
   </view>
 </view>

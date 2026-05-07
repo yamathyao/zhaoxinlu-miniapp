@@ -1,7 +1,7 @@
 const DEFAULT_THEME = {
-  id: "wood-box-default",
+  id: "default",
   name: "木匣纸符默认主题",
-  themeClass: "theme-wood-box-default",
+  themeClass: "theme-default",
   tokens: {
     paper: "#f3e7d4",
     paperBright: "#fffaf0",
@@ -17,6 +17,16 @@ const DEFAULT_THEME = {
     guoLight: "#9fc3c9",
   },
   assets: {
+    bgPaper: "/assets/themes/default/paper-texture.png",
+    boxGongBody: "/assets/themes/default/box-body.png",
+    boxGongLid: "/assets/themes/default/box-lid.png",
+    boxGuoBody: "/assets/themes/default/box-body.png",
+    boxGuoLid: "/assets/themes/default/box-lid.png",
+    paperSlipGong: "",
+    paperSlipGuo: "",
+    paperSlipEditor: "",
+    sealRibbon: "",
+    dustMotes: "",
     paperTexture: "/assets/themes/default/paper-texture.png",
     boxTexture: "/assets/themes/default/box-body.png",
     boxBody: "/assets/themes/default/box-body.png",

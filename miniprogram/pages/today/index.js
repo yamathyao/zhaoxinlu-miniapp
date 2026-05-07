@@ -8,6 +8,8 @@ const {
 const { getTheme } = require("../../services/theme-service");
 const {
   addSlip,
+  clearAll,
+  clearToday,
   getJudgement,
   loadRecords,
   saveRecords,
@@ -70,6 +72,16 @@ function getLampLevel(count) {
   return 0;
 }
 
+function getFlyingSlipSkin(assets, type) {
+  if (!assets) {
+    return "";
+  }
+
+  return type === "guo"
+    ? assets.paperSlipGuo || ""
+    : assets.paperSlipGong || "";
+}
+
 Page({
   editorOpenTimer: null,
   sendTimer: null,
@@ -80,6 +92,7 @@ Page({
     scene: "intro",
     dailyLine: copy.intro.line,
     flyingText: "",
+    flyingSlipSkin: "",
     records: null,
     today: {
       dateKey: "",
@@ -92,6 +105,8 @@ Page({
     lampState: "lamp-balanced lamp-level-0",
     displayDate: "",
     editorVisible: false,
+    helpVisible: false,
+    settingsVisible: false,
     pendingType: "gong",
     editorCopy: getTokenCopy("gong"),
     boxViewerVisible: false,
@@ -146,6 +161,70 @@ Page({
     });
   },
 
+  openHelp() {
+    this.setData({
+      helpVisible: true,
+    });
+  },
+
+  closeHelp() {
+    this.setData({
+      helpVisible: false,
+    });
+  },
+
+  openSettings() {
+    this.setData({
+      settingsVisible: true,
+    });
+  },
+
+  closeSettings() {
+    this.setData({
+      settingsVisible: false,
+    });
+  },
+
+  confirmClearToday() {
+    wx.showModal({
+      title: this.data.copy.settings.clearTodayTitle,
+      content: this.data.copy.settings.clearTodayConfirm,
+      confirmText: this.data.copy.settings.confirm,
+      cancelText: this.data.copy.settings.cancel,
+      success: ({ confirm }) => {
+        if (!confirm) {
+          return;
+        }
+
+        const records = clearToday(this.data.records || loadRecords());
+        saveRecords(records);
+        this.refresh();
+        this.setData({ settingsVisible: false });
+        wx.showToast({ title: this.data.copy.settings.clearTodayDone, icon: "none" });
+      },
+    });
+  },
+
+  confirmClearAll() {
+    wx.showModal({
+      title: this.data.copy.settings.clearAllTitle,
+      content: this.data.copy.settings.clearAllConfirm,
+      confirmText: this.data.copy.settings.confirm,
+      cancelText: this.data.copy.settings.cancel,
+      success: ({ confirm }) => {
+        if (!confirm) {
+          return;
+        }
+
+        const records = clearAll();
+        saveRecords(records);
+        this.refresh();
+        this.setData({ settingsVisible: false });
+        wx.showToast({ title: this.data.copy.settings.clearAllDone, icon: "none" });
+      },
+    });
+  },
+
   openGong() {
     this.openEditor("gong");
   },
@@ -169,6 +248,7 @@ Page({
       editorCopy: getTokenCopy(type),
     });
   },
+
   closeEditor() {
     clearTimeout(this.editorOpenTimer);
     this.setData({
@@ -191,6 +271,7 @@ Page({
     this.setData({
       scene: "sending",
       flyingText: text || tokenCopy.emptySlip,
+      flyingSlipSkin: getFlyingSlipSkin(this.data.theme.assets, type),
       editorVisible: false,
     });
 
@@ -200,6 +281,7 @@ Page({
       this.setData({
         scene: "idle",
         flyingText: "",
+        flyingSlipSkin: "",
       });
       wx.showToast({ title: tokenCopy.status, icon: "none" });
     }, SLIP_FLY_MS);
@@ -268,9 +350,5 @@ Page({
 
   goSummary() {
     wx.navigateTo({ url: "/pages/summary/index" });
-  },
-
-  goArchive() {
-    wx.navigateTo({ url: "/pages/archive/index" });
   },
 });

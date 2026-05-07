@@ -12,7 +12,6 @@ Component({
         summary: "",
         seal: "",
         unseal: "",
-        archive: "",
       },
     },
   },
@@ -32,10 +31,6 @@ Component({
 
     seal() {
       this.triggerEvent("seal");
-    },
-
-    archive() {
-      this.triggerEvent("archive");
     },
   },
 });

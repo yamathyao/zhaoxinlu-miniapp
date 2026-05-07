@@ -1,4 +1,4 @@
-# 收念匣 / Shounian Box Miniapp
+﻿# 收念匣 / Shounian Box Miniapp
 
 > 把今日一念，轻轻收进匣中。<br>
 > Gently collect each day's thoughts into a quiet box.
@@ -17,7 +17,8 @@
 - 将纸符收入对应的功匣 / 过匣
 - 点击匣子查看已收起的符文内容
 - 当天可封存，也可解封后继续记录
-- 后续回看自己的内在变化
+- 查看今日卡片与往日归档
+- 通过玩法说明与设置入口管理记录
 
 The current version starts with **daily personal recording**:
 
@@ -25,7 +26,8 @@ The current version starts with **daily personal recording**:
 - Place the paper slip into the matching virtue / fault box
 - Open a box to review the slips collected inside
 - Seal the day, or unseal it later on the same day to keep writing
-- Review inner changes over time
+- View the current day's card and past archive entries
+- Use the help and settings entry points to understand and manage records
 
 “收念匣”强调的是一个温和动作：把今日值得回看的念头收起来，而不是审判自己。当前视觉载体以双匣与符纸为主，未来仍可继续探索签筒、手札、账簿、灯盏，或其他更契合用户偏好的形式。
 
@@ -53,12 +55,17 @@ The Mini Program has moved from a static scaffold into an interactive prototype,
 - 🧹 **编码整理**：小程序源文件已处理为 UTF-8 无 BOM，避免 WXSS / WXML 编译乱码。<br>**Encoding cleanup**: source files are kept as UTF-8 without BOM to avoid WXSS / WXML compilation issues.
 - 🧩 **默认资源边界一期**：话术、主题 token、资源映射和默认静态素材已收敛到配置与服务入口，心灯也已作为主题资源槽接入。<br>**Default resource boundary phase 1**: copy, theme tokens, asset mapping, and default static assets are now routed through config and service entry points, with the heart lamp connected as a theme asset slot.
 - 🪔 **心灯与符文体验打磨**：心灯会按功过差值阶梯变亮或变暗，匣中符文改为固定空间内堆叠，避免撑高匣子。<br>**Heart-lamp and slip polish**: the heart lamp brightens or dims by virtue/fault balance, and box slips now stack inside a fixed space without stretching the box.
+- ❔ **玩法说明入口**：今日页右上角提供玩法说明入口，便于新用户快速理解记录流程。<br>**Help entry**: the today page now provides a help entry in the top-right corner for quickly understanding the recording flow.
+- ⚙ **设置入口与清理能力**：今日页右上角提供设置入口，当前已支持清除当天记录与清除全部记录。<br>**Settings and cleanup**: the top-right settings entry now supports clearing today's records and clearing all records.
+- ⌨ **写符弹层输入法适配**：写符弹层整体高度收短，并会在输入法弹起时跟随上移，避免底部按钮被遮挡。<br>**Keyboard-aware writing modal**: the writing modal is shorter and moves upward with the keyboard to keep action buttons reachable.
+- 📝 **今日评语文案池**：今日评语已从少量固定文案升级为按日期、状态和数量稳定选择的文案池。<br>**Daily judgement pool**: daily judgement now comes from a stable pool selected by date, state, and record counts.
 
 ### 📝 待继续 / Next
 
-- 在微信开发者工具中回归验证今日页写符弹层、符文飞入匣子、心灯位置、封存卡片和归档页底部按钮，优先收口默认体验。<br>Run a WeChat DevTools regression pass for the writing modal, slip-to-box animation, heart-lamp placement, sealed card, and archive bottom controls, prioritizing the default experience closeout.
+- 在微信开发者工具中回归验证今日页写符弹层、顶部玩法/设置入口、清理动作、符文飞入匣子、心灯位置、封存卡片和归档页底部按钮，优先收口默认体验。<br>Run a WeChat DevTools regression pass for the writing modal, top-right help/settings entries, cleanup actions, slip-to-box animation, heart-lamp placement, sealed card, and archive bottom controls, prioritizing the default experience closeout.
 - 打磨匣子放大与退出时的过渡动画，让“推近匣子”的感觉更连贯。<br>Refine the zoom-in and exit transition so opening a box feels more continuous.
 - 增加更细的符纸纹理、印章、边框与书写排版。<br>Add richer paper textures, seals, borders, and writing layout details.
+- 继续扩充“今日评语”文案池，并按状态组定向提高文案质量。<br>Continue expanding the daily-judgement copy pool and improve quality by tone group.
 - 完善归档页的日期浏览、历史回看与长期趋势呈现。<br>Improve archive browsing, historical review, and long-term trend presentation.
 - 在微信开发者工具中做更多真机 / 模拟器视觉验收。<br>Run more visual checks in WeChat DevTools and on real or simulated devices.
 
@@ -77,7 +84,10 @@ The Mini Program has moved from a static scaffold into an interactive prototype,
 | `docs/plans/2026-04-27-gongguo-demo-plan.md` | 原型实现计划记录。<br>Prototype implementation plan. |
 | `docs/specs/2026-05-03-current-scope.md` | 当前产品范围说明。<br>Current scope note. |
 | `docs/specs/2026-05-06-resource-boundary-spec.md` | 默认资源边界与未来静态资源分离规范。<br>Default resource boundary and future static-resource separation spec. |
+| `docs/specs/2026-05-07-midjourney-visual-assets.md` | Midjourney 视觉资源接入规范与暂缓记录。<br>Midjourney visual-asset integration notes and pause record. |
+| `docs/specs/2026-05-07-theme-package-rules.md` | 主题文件规则、目录规范与 fallback 约束。<br>Theme package rules, directory conventions, and fallback constraints. |
 | `docs/progress/2026-05-06-work-progress.md` | 2026-05-06 今日开发内容、验证与下一步。<br>2026-05-06 work progress, validation, and next steps. |
+| `docs/progress/2026-05-07-work-progress.md` | 2026-05-07 今日开发内容、设置功能、评语池与下一步。<br>2026-05-07 work progress, settings features, judgement pool, and next steps. |
 
 ## 🛠️ 当前状态 / Current Status
 

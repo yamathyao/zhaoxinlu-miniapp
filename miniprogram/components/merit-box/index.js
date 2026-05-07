@@ -7,6 +7,33 @@ function buildStackSlips(slips) {
   }));
 }
 
+function getTypedAsset(skin, type, suffix, fallback) {
+  if (!skin) {
+    return "";
+  }
+
+  const typeName = type === "guo" ? "Guo" : "Gong";
+  return skin[`box${typeName}${suffix}`] || skin[fallback] || "";
+}
+
+function getSlipAsset(skin, type) {
+  if (!skin) {
+    return "";
+  }
+
+  return type === "guo"
+    ? skin.paperSlipGuo || ""
+    : skin.paperSlipGong || "";
+}
+
+function buildVisualSkin(skin, type) {
+  return {
+    body: getTypedAsset(skin, type, "Body", "boxBody"),
+    lid: getTypedAsset(skin, type, "Lid", "boxLid"),
+    slip: getSlipAsset(skin, type),
+  };
+}
+
 Component({
   properties: {
     skin: {
@@ -48,6 +75,7 @@ Component({
 
   data: {
     stackSlips: [],
+    visualSkin: {},
   },
 
   observers: {
@@ -56,12 +84,18 @@ Component({
         stackSlips: buildStackSlips(slips),
       });
     },
+    "skin,type": function(skin, type) {
+      this.setData({
+        visualSkin: buildVisualSkin(skin, type),
+      });
+    },
   },
 
   lifetimes: {
     attached() {
       this.setData({
         stackSlips: buildStackSlips(this.properties.slips),
+        visualSkin: buildVisualSkin(this.properties.skin, this.properties.type),
       });
     },
   },

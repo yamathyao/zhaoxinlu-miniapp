@@ -1,5 +1,6 @@
 <view class="daily-card {{lampState}}">
   <image class="card-bg-skin" wx:if="{{skin.cardBg}}" src="{{skin.cardBg}}" mode="aspectFill" />
+  <image class="card-ribbon-skin" wx:if="{{skin.sealRibbon}}" src="{{skin.sealRibbon}}" mode="aspectFill" />
   <image class="card-heart-lamp-image" wx:if="{{skin.heartLamp}}" src="{{skin.heartLamp}}" mode="aspectFit" />
   <view class="card-heart-lamp" wx:else>
     <view class="card-lamp-flame"></view>
@@ -11,7 +12,8 @@
     <text class="card-copy">{{judgement.copy}}</text>
   </view>
   <view class="card-counts">
-    <text>{{day.gong.length}} {{copy.domain.gong.slipName}}</text>
-    <text>{{day.guo.length}} {{copy.domain.guo.slipName}}</text>
+    <text class="card-count-pill">{{day.gong.length}} {{copy.domain.gong.slipName}}</text>
+    <text class="card-count-pill">{{day.guo.length}} {{copy.domain.guo.slipName}}</text>
   </view>
+  <image class="card-seal-skin" wx:if="{{skin.sealIcon}}" src="{{skin.sealIcon}}" mode="aspectFit" />
 </view>

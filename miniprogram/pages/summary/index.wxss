@@ -3,23 +3,29 @@
 .summary-page {
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   padding: 48rpx 32rpx calc(300rpx + env(safe-area-inset-bottom));
   text-align: center;
 }
 
-
 .summary-card-slot {
   display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: center;
   min-height: calc(100vh - 348rpx - env(safe-area-inset-bottom));
 }
 
-.summary-card-slot sealed-card {
-  display: block;
-  flex: 1;
+.summary-card-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 680rpx;
   min-height: 100%;
 }
+
 .summary-actions {
   position: fixed;
   right: 32rpx;

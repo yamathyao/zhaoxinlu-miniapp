@@ -1,11 +1,10 @@
 <view class="action-bar {{sealed ? 'is-sealed' : ''}}">
   <view class="primary-actions">
-    <button class="record-btn gong" disabled="{{sealed}}" bindtap="addGong">{{copy.addGong}}</button>
-    <button class="record-btn guo" disabled="{{sealed}}" bindtap="addGuo">{{copy.addGuo}}</button>
+    <button class="record-btn gong {{sealed ? 'is-disabled' : ''}}" disabled="{{sealed}}" bindtap="addGong">{{copy.addGong}}</button>
+    <button class="record-btn guo {{sealed ? 'is-disabled' : ''}}" disabled="{{sealed}}" bindtap="addGuo">{{copy.addGuo}}</button>
   </view>
-  <view class="secondary-actions">
+  <view class="secondary-actions secondary-actions-compact">
     <button bindtap="summary">{{copy.summary}}</button>
     <button class="seal-toggle" bindtap="seal">{{sealed ? copy.unseal : copy.seal}}</button>
-    <button bindtap="archive">{{copy.archive}}</button>
   </view>
 </view>
