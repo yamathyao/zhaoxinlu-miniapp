@@ -17,7 +17,7 @@
   </view>
 
   <view class="titlebar">
-    <text class="kicker">{{copy.app.kicker}}</text>
+    <text class="kicker" wx:if="{{copy.app.kicker}}">{{copy.app.kicker}}</text>
     <text class="title">{{copy.app.title}}</text>
     <text class="date">{{displayDate}}</text>
   </view>

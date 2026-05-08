@@ -5,7 +5,7 @@
     </view>
   </view>
   <view class="summary-actions">
-    <button class="primary-btn" bindtap="shareCard">{{copy.summary.shareButton}}</button>
+    <button class="primary-btn" open-type="share">{{copy.summary.shareButton}}</button>
     <button class="ghost-btn" bindtap="goArchive">{{copy.summary.archiveButton}}</button>
   </view>
 </view>

@@ -134,9 +134,13 @@
 
 .title {
   color: var(--ink);
-  font-size: 48rpx;
+  font-size: 52rpx;
   font-weight: 700;
   line-height: 1.18;
+}
+
+.date {
+  font-size: 30rpx;
 }
 
 .has-modal .top-tools,

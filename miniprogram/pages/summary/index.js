@@ -2,6 +2,7 @@ const { getCopy } = require("../../services/copy-service");
 const { getTheme } = require("../../services/theme-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
+const { buildSummaryShareMessage } = require("../../services/share-service");
 
 const copy = getCopy();
 
@@ -29,8 +30,11 @@ Page({
     });
   },
 
-  shareCard() {
-    wx.showToast({ title: copy.summary.sharePending, icon: "none" });
+  onShareAppMessage() {
+    return buildSummaryShareMessage({
+      day: this.data.today,
+      judgement: this.data.judgement,
+    });
   },
 
   goArchive() {

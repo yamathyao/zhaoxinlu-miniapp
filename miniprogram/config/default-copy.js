@@ -375,7 +375,7 @@ const JUDGEMENT_COPY = {
 const DEFAULT_COPY = {
   app: {
     name: "收念匣",
-    kicker: "双匣试作",
+    kicker: "",
     title: "今日一念，收归两匣",
   },
   intro: {
@@ -452,9 +452,8 @@ const DEFAULT_COPY = {
     cancel: "先不写",
   },
   summary: {
-    shareButton: "生成分享样式",
+    shareButton: "分享今日卡片",
     archiveButton: "查看往日卡片",
-    sharePending: "分享卡片样式待打磨",
   },
   archive: {
     kicker: "归档",
