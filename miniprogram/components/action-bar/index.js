@@ -4,6 +4,16 @@ Component({
       type: Boolean,
       value: false,
     },
+    copy: {
+      type: Object,
+      value: {
+        addGong: "",
+        addGuo: "",
+        summary: "",
+        seal: "",
+        unseal: "",
+      },
+    },
   },
 
   methods: {
@@ -21,10 +31,6 @@ Component({
 
     seal() {
       this.triggerEvent("seal");
-    },
-
-    archive() {
-      this.triggerEvent("archive");
     },
   },
 });

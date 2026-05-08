@@ -1,5 +1,9 @@
 Component({
   properties: {
+    skin: {
+      type: Object,
+      value: {},
+    },
     visible: {
       type: Boolean,
       value: false,
@@ -10,7 +14,7 @@ Component({
     },
     title: {
       type: String,
-      value: "写一功",
+      value: "",
     },
     placeholder: {
       type: String,
@@ -18,7 +22,11 @@ Component({
     },
     submitText: {
       type: String,
-      value: "收入功匣",
+      value: "",
+    },
+    cancelText: {
+      type: String,
+      value: "",
     },
     mode: {
       type: String,
@@ -32,14 +40,79 @@ Component({
 
   data: {
     text: "",
+    paperSkin: "",
+    paperOffsetY: 0,
+  },
+
+  observers: {
+    "skin,type": function(skin, type) {
+      const typedSkin = type === "guo"
+        ? skin.paperSlipGuo
+        : skin.paperSlipGong;
+
+      this.setData({
+        paperSkin: skin.paperSlipEditor || typedSkin || "",
+      });
+    },
+    visible: function(visible) {
+      if (!visible) {
+        this.setData({
+          paperOffsetY: 0,
+        });
+      }
+    },
   },
 
   methods: {
     noop() {},
 
+    pxToRpx(px) {
+      const systemInfo = wx.getWindowInfo
+        ? wx.getWindowInfo()
+        : wx.getSystemInfoSync();
+      const windowWidth = systemInfo.windowWidth || 375;
+
+      return px * 750 / windowWidth;
+    },
+
+    getKeyboardOffset(heightPx) {
+      if (!heightPx) {
+        return 0;
+      }
+
+      const keyboardHeightRpx = this.pxToRpx(heightPx);
+      return Math.max(0, Math.min(420, keyboardHeightRpx - 40));
+    },
+
     handleInput(event) {
       this.setData({
         text: event.detail.value,
+      });
+    },
+
+    handleFocus(event) {
+      const height = event.detail && typeof event.detail.height === "number"
+        ? event.detail.height
+        : 0;
+
+      this.setData({
+        paperOffsetY: this.getKeyboardOffset(height),
+      });
+    },
+
+    handleBlur() {
+      this.setData({
+        paperOffsetY: 0,
+      });
+    },
+
+    handleKeyboardHeightChange(event) {
+      const height = event.detail && typeof event.detail.height === "number"
+        ? event.detail.height
+        : 0;
+
+      this.setData({
+        paperOffsetY: this.getKeyboardOffset(height),
       });
     },
 
@@ -54,7 +127,7 @@ Component({
       if (this.properties.disabled) {
         return;
       }
-      this.setData({ text: "" });
+      this.setData({ text: "", paperOffsetY: 0 });
       this.triggerEvent("cancel");
     },
 
@@ -65,7 +138,7 @@ Component({
       this.triggerEvent("submit", {
         text: this.data.text.trim(),
       });
-      this.setData({ text: "" });
+      this.setData({ text: "", paperOffsetY: 0 });
     },
   },
 });

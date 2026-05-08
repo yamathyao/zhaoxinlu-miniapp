@@ -1,49 +1,104 @@
-<view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible || boxViewerVisible ? 'has-modal' : ''}}">
+﻿<view class="today-page scene-{{scene}} focus-{{pendingType}} {{editorVisible || boxViewerVisible || helpVisible || settingsVisible ? 'has-modal' : ''}}">
+  <image class="page-skin" wx:if="{{theme.assets.bgPaper || theme.assets.paperTexture}}" src="{{theme.assets.bgPaper || theme.assets.paperTexture}}" mode="aspectFill" />
+  <image class="dust-skin" wx:if="{{theme.assets.dustMotes}}" src="{{theme.assets.dustMotes}}" mode="aspectFill" />
   <view class="intro-curtain" wx:if="{{scene === 'intro'}}" bindtap="enterDesk">
-    <text class="intro-kicker">收念匣</text>
+    <text class="intro-kicker">{{copy.intro.kicker}}</text>
     <text class="intro-line">{{dailyLine}}</text>
-    <text class="intro-hint">轻触启匣</text>
+    <text class="intro-hint">{{copy.intro.hint}}</text>
+  </view>
+
+  <view class="top-tools">
+    <view class="tool-btn" bindtap="openHelp">
+      <text class="tool-btn-text">{{copy.help.trigger}}</text>
+    </view>
+    <view class="tool-btn tool-btn-gear" bindtap="openSettings">
+      <text class="tool-btn-text tool-btn-gear-text">{{copy.settings.trigger}}</text>
+    </view>
   </view>
 
   <view class="titlebar">
-    <text class="kicker">双匣试作</text>
-    <text class="title">今日一念，收归两匣</text>
+    <text class="kicker" wx:if="{{copy.app.kicker}}">{{copy.app.kicker}}</text>
+    <text class="title">{{copy.app.title}}</text>
     <text class="date">{{displayDate}}</text>
   </view>
 
   <view class="desk-stage">
+    <image class="desk-surface-skin" wx:if="{{theme.assets.deskSurface}}" src="{{theme.assets.deskSurface}}" mode="aspectFill" />
     <view class="stage-glow"></view>
     <view class="flying-slip flying-{{pendingType}} {{scene === 'sending' ? 'is-flying' : ''}}">
+      <image class="flying-slip-skin" wx:if="{{flyingSlipSkin}}" src="{{flyingSlipSkin}}" mode="aspectFill" />
       <text>{{flyingText}}</text>
     </view>
 
     <view class="box-grid">
-      <merit-box type="gong" title="功匣" count="{{today.gong.length}}" slips="{{today.gong}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
-      <merit-box type="guo" title="过匣" count="{{today.guo.length}}" slips="{{today.guo}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="gong" skin="{{theme.assets}}" title="{{copy.domain.gong.boxTitle}}" count="{{today.gong.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.gong}}" emptyText="{{copy.token.gong.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
+      <merit-box type="guo" skin="{{theme.assets}}" title="{{copy.domain.guo.boxTitle}}" count="{{today.guo.length}}" countUnit="{{copy.viewer.countUnit}}" slips="{{today.guo}}" emptyText="{{copy.token.guo.emptySlip}}" sealed="{{today.sealed}}" bind:open="openBoxViewer" />
     </view>
   </view>
 
-  <view class="judgement-panel">
-    <text class="panel-kicker">今日评语</text>
+  <view class="heart-lamp-wrap judgement-{{judgementTone}} {{lampState}}">
+    <image class="heart-lamp-image" wx:if="{{theme.assets.heartLamp}}" src="{{theme.assets.heartLamp}}" mode="aspectFit" />
+    <view class="heart-lamp" wx:else>
+      <view class="lamp-flame"></view>
+      <view class="lamp-bowl"></view>
+    </view>
+  </view>
+
+  <view class="judgement-panel judgement-{{judgementTone}}">
+    <text class="panel-kicker">{{copy.panel.judgementKicker}}</text>
     <text class="panel-title">{{judgement.title}}</text>
     <text class="panel-copy">{{judgement.copy}}</text>
   </view>
 
   <action-bar
     sealed="{{today.sealed}}"
+    copy="{{copy.actionBar}}"
     bind:addgong="openGong"
     bind:addguo="openGuo"
     bind:summary="goSummary"
-    bind:archive="goArchive"
     bind:seal="seal"
   />
+
+  <view class="help-mask" wx:if="{{helpVisible}}" bindtap="closeHelp" catchtouchmove="noop">
+    <view class="help-dialog" catchtap="noop">
+      <view class="help-header">
+        <text class="help-title">{{copy.help.title}}</text>
+      </view>
+      <text class="help-intro">{{copy.help.intro}}</text>
+      <view class="help-sections">
+        <view class="help-section" wx:for="{{copy.help.sections}}" wx:key="title">
+          <text class="help-section-title">{{item.title}}</text>
+          <text class="help-section-body">{{item.body}}</text>
+        </view>
+      </view>
+      <view class="help-privacy">
+        <text class="help-section-title">{{copy.help.privacyTitle}}</text>
+        <text class="help-section-body">{{copy.help.privacyBody}}</text>
+      </view>
+      <button class="help-close" bindtap="closeHelp">{{copy.help.close}}</button>
+    </view>
+  </view>
+
+  <view class="help-mask" wx:if="{{settingsVisible}}" bindtap="closeSettings" catchtouchmove="noop">
+    <view class="help-dialog settings-dialog" catchtap="noop">
+      <view class="help-header">
+        <text class="help-title">{{copy.settings.title}}</text>
+      </view>
+      <text class="help-intro">{{copy.settings.intro}}</text>
+      <view class="settings-actions">
+        <button class="settings-btn" bindtap="confirmClearToday">{{copy.settings.clearToday}}</button>
+        <button class="settings-btn settings-btn-danger" bindtap="confirmClearAll">{{copy.settings.clearAll}}</button>
+      </view>
+      <button class="help-close" bindtap="closeSettings">{{copy.settings.close}}</button>
+    </view>
+  </view>
 
   <view class="box-viewer-mask {{boxViewerVisible ? 'is-open' : ''}}" wx:if="{{boxViewerVisible}}" bindtap="closeBoxViewer" catchtouchmove="noop">
     <view class="box-viewer box-viewer-{{boxViewerType}}" catchtap="noop">
       <view class="viewer-lid"></view>
       <view class="viewer-header">
         <text class="viewer-kicker">{{boxViewerTitle}}</text>
-        <text class="viewer-count">{{boxViewerSlips.length}} 符</text>
+        <text class="viewer-count">{{boxViewerSlips.length}} {{copy.viewer.countUnit}}</text>
       </view>
       <view class="viewer-body">
         <view class="viewer-mouth">
@@ -59,11 +114,11 @@
               <text class="viewer-slip-preview">{{item.preview}}</text>
             </view>
           </view>
-          <view class="viewer-empty" wx:else>匣中还没有符。</view>
+          <view class="viewer-empty" wx:else>{{copy.viewer.empty}}</view>
         </view>
       </view>
       <view class="slip-detail {{hasSelectedSlip ? 'is-visible' : ''}}">
-        <text class="detail-title">符文</text>
+        <text class="detail-title">{{copy.viewer.detailTitle}}</text>
         <text class="detail-copy">{{selectedSlipText}}</text>
       </view>
     </view>
@@ -71,11 +126,13 @@
 
   <paper-slip
     mode="stage"
+    skin="{{theme.assets}}"
     visible="{{editorVisible}}"
     type="{{pendingType}}"
     title="{{editorCopy.title}}"
     placeholder="{{editorCopy.placeholder}}"
     submitText="{{editorCopy.submit}}"
+    cancelText="{{copy.paperSlip.cancel}}"
     disabled="{{scene === 'sending'}}"
     bind:cancel="closeEditor"
     bind:submit="submitSlip"

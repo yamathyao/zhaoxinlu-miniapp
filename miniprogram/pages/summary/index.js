@@ -1,8 +1,15 @@
+const { getCopy } = require("../../services/copy-service");
+const { getTheme } = require("../../services/theme-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
+const { buildSummaryShareMessage } = require("../../services/share-service");
+
+const copy = getCopy();
 
 Page({
   data: {
+    copy,
+    theme: getTheme(),
     today: {
       dateKey: "",
       gong: [],
@@ -16,14 +23,18 @@ Page({
   onShow() {
     const records = loadRecords();
     this.setData({
+      theme: getTheme(),
       today: records.today,
       judgement: getJudgement(records.today),
       displayDate: formatDisplayDate(records.today.dateKey),
     });
   },
 
-  shareCard() {
-    wx.showToast({ title: "分享卡片样式待打磨", icon: "none" });
+  onShareAppMessage() {
+    return buildSummaryShareMessage({
+      day: this.data.today,
+      judgement: this.data.judgement,
+    });
   },
 
   goArchive() {

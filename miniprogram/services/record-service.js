@@ -177,24 +177,68 @@ function unsealToday(records) {
   };
 }
 
-function getJudgement(day) {
+function clearToday(records) {
+  const todayKey = getDateKey();
+
+  return {
+    ...records,
+    today: createDayRecord(todayKey),
+    archive: (records.archive || []).filter((day) => day.dateKey !== todayKey),
+  };
+}
+
+function clearAll() {
+  return createEmptyRecords(getDateKey());
+}
+
+function getJudgementTone(day) {
   const gongCount = day.gong.length;
   const guoCount = day.guo.length;
   const diff = gongCount - guoCount;
 
   if (gongCount === 0 && guoCount === 0) {
-    return JUDGEMENT_COPY.empty;
+    return "empty";
   }
 
   if (diff > 0) {
-    return JUDGEMENT_COPY.gong;
+    return "gong";
   }
 
   if (diff < 0) {
-    return JUDGEMENT_COPY.guo;
+    return "guo";
   }
 
-  return JUDGEMENT_COPY.balanced;
+  return "balanced";
+}
+
+function hashSeed(text) {
+  return String(text).split("").reduce((acc, char) => {
+    return (acc * 131 + char.charCodeAt(0)) % 2147483647;
+  }, 7);
+}
+
+function pickFromPool(pool, seed) {
+  if (!Array.isArray(pool) || !pool.length) {
+    return "";
+  }
+
+  return pool[seed % pool.length];
+}
+
+function getJudgement(day) {
+  const tone = getJudgementTone(day);
+  const source = JUDGEMENT_COPY[tone] || JUDGEMENT_COPY.empty;
+  const dateKey = day && day.dateKey ? day.dateKey : getDateKey();
+  const gongCount = Array.isArray(day && day.gong) ? day.gong.length : 0;
+  const guoCount = Array.isArray(day && day.guo) ? day.guo.length : 0;
+  const titleSeed = hashSeed(`${dateKey}|${tone}|${gongCount}|${guoCount}|title`);
+  const copySeed = hashSeed(`${dateKey}|${tone}|${gongCount}|${guoCount}|copy`);
+
+  return {
+    tone,
+    title: pickFromPool(source.titlePool, titleSeed),
+    copy: pickFromPool(source.copyPool, copySeed),
+  };
 }
 
 module.exports = {
@@ -210,5 +254,8 @@ module.exports = {
   upsertArchive,
   sealToday,
   unsealToday,
+  clearToday,
+  clearAll,
+  getJudgementTone,
   getJudgement,
 };

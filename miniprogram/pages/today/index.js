@@ -1,7 +1,15 @@
-const { TOKEN_COPY } = require("../../constants/copy");
 const { formatDisplayDate } = require("../../utils/date");
 const {
+  getBoxTitle,
+  getCopy,
+  getSlipName,
+  getTokenCopy,
+} = require("../../services/copy-service");
+const { getTheme } = require("../../services/theme-service");
+const {
   addSlip,
+  clearAll,
+  clearToday,
   getJudgement,
   loadRecords,
   saveRecords,
@@ -9,21 +17,19 @@ const {
   unsealToday,
 } = require("../../services/record-service");
 
-const BOX_VIEWER_TITLE = {
-  gong: "功匣",
-  guo: "过匣",
-};
+const copy = getCopy();
+const SLIP_FLY_MS = 760;
 
 function getSlipText(type, slip) {
   if (slip && slip.text) {
     return slip.text;
   }
 
-  return TOKEN_COPY[type].emptySlip;
+  return getTokenCopy(type).emptySlip;
 }
 
 function buildViewerSlips(type, slips, selectedIndex) {
-  const prefix = type === "gong" ? "功符" : "过符";
+  const prefix = getSlipName(type);
 
   return slips.map((slip, index) => ({
     key: `${slip.createdAt || "draft"}-${index}`,
@@ -33,11 +39,60 @@ function buildViewerSlips(type, slips, selectedIndex) {
   }));
 }
 
+function getLampState(day) {
+  const gongCount = day.gong.length;
+  const guoCount = day.guo.length;
+  const balance = gongCount - guoCount;
+  const level = getLampLevel(Math.abs(balance));
+
+  if (level === 0) {
+    return "lamp-balanced lamp-level-0";
+  }
+
+  return `${balance > 0 ? "lamp-bright" : "lamp-dim"} lamp-level-${level}`;
+}
+
+function getLampLevel(count) {
+  if (count >= 10) {
+    return 10;
+  }
+
+  if (count >= 5) {
+    return 5;
+  }
+
+  if (count >= 3) {
+    return 3;
+  }
+
+  if (count >= 1) {
+    return 1;
+  }
+
+  return 0;
+}
+
+function getFlyingSlipSkin(assets, type) {
+  if (!assets) {
+    return "";
+  }
+
+  return type === "guo"
+    ? assets.paperSlipGuo || ""
+    : assets.paperSlipGong || "";
+}
+
 Page({
+  editorOpenTimer: null,
+  sendTimer: null,
+
   data: {
+    copy,
+    theme: getTheme(),
     scene: "intro",
-    dailyLine: "能看见一念，便已离它近了一步。",
+    dailyLine: copy.intro.line,
     flyingText: "",
+    flyingSlipSkin: "",
     records: null,
     today: {
       dateKey: "",
@@ -46,16 +101,20 @@ Page({
       sealed: false,
     },
     judgement: {},
+    judgementTone: "empty",
+    lampState: "lamp-balanced lamp-level-0",
     displayDate: "",
     editorVisible: false,
+    helpVisible: false,
+    settingsVisible: false,
     pendingType: "gong",
-    editorCopy: TOKEN_COPY.gong,
+    editorCopy: getTokenCopy("gong"),
     boxViewerVisible: false,
     boxViewerType: "gong",
-    boxViewerTitle: "功匣",
+    boxViewerTitle: getBoxTitle("gong"),
     boxViewerSlips: [],
     selectedSlipIndex: 0,
-    selectedSlipText: "点选一枚符查看内容",
+    selectedSlipText: copy.viewer.detailPlaceholder,
     hasSelectedSlip: false,
   },
 
@@ -67,16 +126,102 @@ Page({
     const records = loadRecords();
     const judgement = getJudgement(records.today);
     this.setData({
+      theme: getTheme(),
       records,
       today: records.today,
       judgement,
+      judgementTone: this.getJudgementTone(records.today),
+      lampState: getLampState(records.today),
       displayDate: formatDisplayDate(records.today.dateKey),
     });
+  },
+
+  getJudgementTone(day) {
+    const gongCount = day.gong.length;
+    const guoCount = day.guo.length;
+
+    if (gongCount === 0 && guoCount === 0) {
+      return "empty";
+    }
+
+    if (gongCount > guoCount) {
+      return "gong";
+    }
+
+    if (gongCount < guoCount) {
+      return "guo";
+    }
+
+    return "balanced";
   },
 
   enterDesk() {
     this.setData({
       scene: "idle",
+    });
+  },
+
+  openHelp() {
+    this.setData({
+      helpVisible: true,
+    });
+  },
+
+  closeHelp() {
+    this.setData({
+      helpVisible: false,
+    });
+  },
+
+  openSettings() {
+    this.setData({
+      settingsVisible: true,
+    });
+  },
+
+  closeSettings() {
+    this.setData({
+      settingsVisible: false,
+    });
+  },
+
+  confirmClearToday() {
+    wx.showModal({
+      title: this.data.copy.settings.clearTodayTitle,
+      content: this.data.copy.settings.clearTodayConfirm,
+      confirmText: this.data.copy.settings.confirm,
+      cancelText: this.data.copy.settings.cancel,
+      success: ({ confirm }) => {
+        if (!confirm) {
+          return;
+        }
+
+        const records = clearToday(this.data.records || loadRecords());
+        saveRecords(records);
+        this.refresh();
+        this.setData({ settingsVisible: false });
+        wx.showToast({ title: this.data.copy.settings.clearTodayDone, icon: "none" });
+      },
+    });
+  },
+
+  confirmClearAll() {
+    wx.showModal({
+      title: this.data.copy.settings.clearAllTitle,
+      content: this.data.copy.settings.clearAllConfirm,
+      confirmText: this.data.copy.settings.confirm,
+      cancelText: this.data.copy.settings.cancel,
+      success: ({ confirm }) => {
+        if (!confirm) {
+          return;
+        }
+
+        const records = clearAll();
+        saveRecords(records);
+        this.refresh();
+        this.setData({ settingsVisible: false });
+        wx.showToast({ title: this.data.copy.settings.clearAllDone, icon: "none" });
+      },
     });
   },
 
@@ -90,19 +235,22 @@ Page({
 
   openEditor(type) {
     if (this.data.today.sealed) {
-      wx.showToast({ title: "今日已封存", icon: "none" });
+      wx.showToast({ title: copy.feedback.todaySealed, icon: "none" });
       return;
     }
 
+    clearTimeout(this.editorOpenTimer);
+    clearTimeout(this.sendTimer);
     this.setData({
       scene: "writing",
       editorVisible: true,
       pendingType: type,
-      editorCopy: TOKEN_COPY[type],
+      editorCopy: getTokenCopy(type),
     });
   },
 
   closeEditor() {
+    clearTimeout(this.editorOpenTimer);
     this.setData({
       scene: "idle",
       editorVisible: false,
@@ -112,26 +260,31 @@ Page({
   submitSlip(event) {
     const type = this.data.pendingType;
     const text = event.detail.text;
+    const tokenCopy = getTokenCopy(type);
     const records = {
       ...this.data.records,
       today: addSlip(this.data.today, type, text),
     };
 
+    clearTimeout(this.editorOpenTimer);
+    clearTimeout(this.sendTimer);
     this.setData({
       scene: "sending",
-      flyingText: text || TOKEN_COPY[type].emptySlip,
+      flyingText: text || tokenCopy.emptySlip,
+      flyingSlipSkin: getFlyingSlipSkin(this.data.theme.assets, type),
       editorVisible: false,
     });
 
-    setTimeout(() => {
+    this.sendTimer = setTimeout(() => {
       saveRecords(records);
-      wx.showToast({ title: TOKEN_COPY[type].status, icon: "none" });
       this.refresh();
       this.setData({
         scene: "idle",
         flyingText: "",
+        flyingSlipSkin: "",
       });
-    }, 760);
+      wx.showToast({ title: tokenCopy.status, icon: "none" });
+    }, SLIP_FLY_MS);
   },
 
   seal() {
@@ -147,7 +300,7 @@ Page({
       return;
     }
 
-    wx.showToast({ title: "今日已解封", icon: "none" });
+    wx.showToast({ title: copy.feedback.todayUnsealed, icon: "none" });
   },
 
   openBoxViewer(event) {
@@ -162,10 +315,10 @@ Page({
     this.setData({
       boxViewerVisible: true,
       boxViewerType: type,
-      boxViewerTitle: BOX_VIEWER_TITLE[type],
+      boxViewerTitle: getBoxTitle(type),
       boxViewerSlips: buildViewerSlips(type, slips, selectedIndex),
       selectedSlipIndex: selectedIndex,
-      selectedSlipText: slips.length ? getSlipText(type, slips[0]) : "匣中还没有符。",
+      selectedSlipText: slips.length ? getSlipText(type, slips[0]) : copy.viewer.empty,
       hasSelectedSlip: Boolean(slips.length),
     });
   },
@@ -175,7 +328,7 @@ Page({
       boxViewerVisible: false,
       boxViewerSlips: [],
       selectedSlipIndex: 0,
-      selectedSlipText: "点选一枚符查看内容",
+      selectedSlipText: copy.viewer.detailPlaceholder,
       hasSelectedSlip: false,
     });
   },
@@ -190,16 +343,12 @@ Page({
     this.setData({
       boxViewerSlips: buildViewerSlips(type, slips, index),
       selectedSlipIndex: index,
-      selectedSlipText: slips[index] ? getSlipText(type, slips[index]) : "点选一枚符查看内容",
+      selectedSlipText: slips[index] ? getSlipText(type, slips[index]) : copy.viewer.detailPlaceholder,
       hasSelectedSlip: Boolean(slips[index]),
     });
   },
 
   goSummary() {
     wx.navigateTo({ url: "/pages/summary/index" });
-  },
-
-  goArchive() {
-    wx.navigateTo({ url: "/pages/archive/index" });
   },
 });
