@@ -1,6 +1,11 @@
 const { getCopy } = require("../../services/copy-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
+const {
+  buildMiniappShareMessage,
+  buildMiniappTimelineMessage,
+  enableMiniappShare,
+} = require("../../services/share-service");
 
 const copy = getCopy();
 
@@ -8,6 +13,10 @@ Page({
   data: {
     copy,
     archive: [],
+  },
+
+  onLoad() {
+    enableMiniappShare();
   },
 
   onShow() {
@@ -23,5 +32,13 @@ Page({
 
   goToday() {
     wx.navigateBack();
+  },
+
+  onShareAppMessage() {
+    return buildMiniappShareMessage();
+  },
+
+  onShareTimeline() {
+    return buildMiniappTimelineMessage();
   },
 });

@@ -16,6 +16,11 @@ const {
   sealToday,
   unsealToday,
 } = require("../../services/record-service");
+const {
+  buildMiniappShareMessage,
+  buildMiniappTimelineMessage,
+  enableMiniappShare,
+} = require("../../services/share-service");
 
 const copy = getCopy();
 const SLIP_FLY_MS = 760;
@@ -118,8 +123,20 @@ Page({
     hasSelectedSlip: false,
   },
 
+  onLoad() {
+    enableMiniappShare();
+  },
+
   onShow() {
     this.refresh();
+  },
+
+  onShareAppMessage() {
+    return buildMiniappShareMessage();
+  },
+
+  onShareTimeline() {
+    return buildMiniappTimelineMessage();
   },
 
   refresh() {

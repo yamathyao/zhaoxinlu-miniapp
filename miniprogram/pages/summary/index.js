@@ -2,7 +2,12 @@ const { getCopy } = require("../../services/copy-service");
 const { getTheme } = require("../../services/theme-service");
 const { formatDisplayDate } = require("../../utils/date");
 const { getJudgement, loadRecords } = require("../../services/record-service");
-const { buildSummaryShareMessage } = require("../../services/share-service");
+const {
+  buildMiniappShareMessage,
+  buildMiniappTimelineMessage,
+  buildSummaryShareMessage,
+  enableMiniappShare,
+} = require("../../services/share-service");
 
 const copy = getCopy();
 
@@ -20,6 +25,10 @@ Page({
     displayDate: "",
   },
 
+  onLoad() {
+    enableMiniappShare();
+  },
+
   onShow() {
     const records = loadRecords();
     this.setData({
@@ -30,11 +39,19 @@ Page({
     });
   },
 
-  onShareAppMessage() {
+  onShareAppMessage(event) {
+    if (!event || event.from !== "button") {
+      return buildMiniappShareMessage();
+    }
+
     return buildSummaryShareMessage({
       day: this.data.today,
       judgement: this.data.judgement,
     });
+  },
+
+  onShareTimeline() {
+    return buildMiniappTimelineMessage();
   },
 
   goArchive() {
