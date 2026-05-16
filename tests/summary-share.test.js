@@ -1,8 +1,21 @@
 const assert = require("node:assert/strict");
 
-const { buildSummaryShareMessage } = require("../miniprogram/services/share-service");
+const {
+  buildMiniappShareMessage,
+  buildMiniappTimelineMessage,
+  buildSummaryShareMessage,
+} = require("../miniprogram/services/share-service");
 
 function run() {
+  assert.deepEqual(buildMiniappShareMessage(), {
+    title: "把今日一念，轻轻收进匣中",
+    path: "/pages/today/index",
+  });
+  assert.deepEqual(buildMiniappTimelineMessage(), {
+    title: "把今日一念，轻轻收进匣中",
+    query: "",
+  });
+
   const message = buildSummaryShareMessage({
     day: {
       dateKey: "2026-05-08",
